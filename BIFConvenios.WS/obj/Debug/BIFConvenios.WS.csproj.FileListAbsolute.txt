@@ -1,0 +1,7 @@
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\bin\BIFConvenios.WS.dll.config
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\bin\BIFConvenios.WS.dll
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\bin\BIFConvenios.WS.pdb
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\obj\Debug\BIFConvenios.WS.csproj.AssemblyReference.cache
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\obj\Debug\BIFConvenios.WS.csproj.CoreCompileInputs.cache
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\obj\Debug\BIFConvenios.WS.dll
+D:\banbif\project\BIFConvenios.WS\BIFConvenios.WS\obj\Debug\BIFConvenios.WS.pdb
