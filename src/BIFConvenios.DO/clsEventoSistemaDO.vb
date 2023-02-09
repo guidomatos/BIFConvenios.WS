@@ -2,15 +2,13 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsEventoSistemaDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function Insertar(ByVal pobjEventoSistema As clsEventoSistema) As Integer
+    Public Function Insertar(pobjEventoSistema As clsEventoSistema) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -36,7 +34,6 @@ Public Class clsEventoSistemaDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num

@@ -1,19 +1,14 @@
-
 Imports BIFConvenios.BE
 Imports DAL
-Imports Microsoft.VisualBasic
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
-Imports System.Reflection
 
 Public Class clsParametroDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
-    Public Function ObtenerParametro(ByVal pIdGrupo As Integer, ByVal pIdParametro As Integer) As clsParametro
+    Public Function ObtenerParametro(pIdGrupo As Integer, pIdParametro As Integer) As clsParametro
         Dim dasql As New DASQL
         Dim command As New SqlCommand
         Dim parametro As New clsParametro
@@ -51,7 +46,6 @@ Public Class clsParametroDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return parametro

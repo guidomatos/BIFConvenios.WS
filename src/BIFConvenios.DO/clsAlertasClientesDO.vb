@@ -2,15 +2,13 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsAlertasClientesDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function ChangeStatus(ByVal pobjAlertasClientes As clsAlertasClientes) As Integer
+    Public Function ChangeStatus(pobjAlertasClientes As clsAlertasClientes) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -33,13 +31,12 @@ Public Class clsAlertasClientesDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function Insert(ByVal pobjAlertasClientes As clsAlertasClientes) As Integer
+    Public Function Insert(pobjAlertasClientes As clsAlertasClientes) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -66,13 +63,12 @@ Public Class clsAlertasClientesDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function ObtenerAlertasClientesEnviar(ByVal pintCodigoCliente As Integer, ByVal pdecSaldoContable As Decimal, ByVal pintAnioPeriodo As Integer, ByVal pintMesPeriodo As Integer) As DataTable
+    Public Function ObtenerAlertasClientesEnviar(pintCodigoCliente As Integer, pdecSaldoContable As Decimal, pintAnioPeriodo As Integer, pintMesPeriodo As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -100,13 +96,12 @@ Public Class clsAlertasClientesDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerCuotasVencidasAlertasEnviar(ByVal pintCodigoIBS As Integer) As DataTable
+    Public Function ObtenerCuotasVencidasAlertasEnviar(pintCodigoIBS As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -131,13 +126,12 @@ Public Class clsAlertasClientesDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtieneAlertasClientesPorCriterio(ByVal pobjAlertasClientes As clsAlertasClientes) As DataTable
+    Public Function ObtieneAlertasClientesPorCriterio(pobjAlertasClientes As clsAlertasClientes) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -165,13 +159,12 @@ Public Class clsAlertasClientesDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function Update(ByVal pobjAlertasClientes As clsAlertasClientes) As Integer
+    Public Function Update(pobjAlertasClientes As clsAlertasClientes) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -199,7 +192,6 @@ Public Class clsAlertasClientesDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num

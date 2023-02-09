@@ -1,15 +1,13 @@
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsAccesoDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function GetBuscarPerfilUsuario(ByVal pstridUsuario As String) As String
+    Public Function GetBuscarPerfilUsuario(pstridUsuario As String) As String
         Dim str As String
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -30,7 +28,6 @@ Public Class clsAccesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return str

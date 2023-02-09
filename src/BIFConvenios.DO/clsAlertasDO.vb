@@ -2,8 +2,6 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsAlertasDO
     <DebuggerNonUserCode()> Public Sub New()
@@ -11,7 +9,7 @@ Public Class clsAlertasDO
     End Sub
 
     ' Methods
-    Public Function ChangeStatus(ByVal pobjAlertas As clsAlertas) As Integer
+    Public Function ChangeStatus(pobjAlertas As clsAlertas) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -34,13 +32,12 @@ Public Class clsAlertasDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function Insert(ByVal pobjAlertas As clsAlertas) As Integer
+    Public Function Insert(pobjAlertas As clsAlertas) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -67,13 +64,12 @@ Public Class clsAlertasDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function ObtieneAlertasPorCriterio(ByVal pobjAlertas As clsAlertas) As DataTable
+    Public Function ObtieneAlertasPorCriterio(pobjAlertas As clsAlertas) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -101,13 +97,12 @@ Public Class clsAlertasDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function Update(ByVal pobjAlertas As clsAlertas) As Integer
+    Public Function Update(pobjAlertas As clsAlertas) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -135,7 +130,6 @@ Public Class clsAlertasDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num

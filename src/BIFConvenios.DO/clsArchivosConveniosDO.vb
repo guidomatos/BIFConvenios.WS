@@ -2,15 +2,13 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsArchivosConveniosDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function Insert(ByVal objArchivosConvenio As clsArchivosConvenios) As Integer
+    Public Function Insert(objArchivosConvenio As clsArchivosConvenios) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -36,13 +34,12 @@ Public Class clsArchivosConveniosDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function Seleccionar(ByVal objArchivosConvenio As clsArchivosConvenios, ByVal iStartRowIndex As Integer, ByVal iMaxRows As Integer, ByRef iTotalRows As Integer) As DataTable
+    Public Function Seleccionar(objArchivosConvenio As clsArchivosConvenios, iStartRowIndex As Integer, iMaxRows As Integer, ByRef iTotalRows As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -57,7 +54,7 @@ Public Class clsArchivosConveniosDO
             dasql.AddParameter(command, "@vUsuarioCreacion", objArchivosConvenio.vUsuarioCreacion, SqlDbType.VarChar)
             dasql.AddParameter(command, "@iStartRowIndex", iStartRowIndex, SqlDbType.Int)
             dasql.AddParameter(command, "@iMaxRows", iMaxRows, SqlDbType.Int)
-            dasql.AddParameter(command, "@iTotalRows", CInt(iTotalRows), SqlDbType.Int, ParameterDirection.Output)
+            dasql.AddParameter(command, "@iTotalRows", iTotalRows, SqlDbType.Int, ParameterDirection.Output)
             Dim table2 As New DataTable
             table2 = dasql.ExecuteReader(command)
             If (table2.Rows.Count = 0) Then
@@ -76,7 +73,6 @@ Public Class clsArchivosConveniosDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table

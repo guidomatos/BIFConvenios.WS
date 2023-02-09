@@ -2,15 +2,13 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsSystemParametersDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function Insert(ByVal objSystemParameters As clsSystemParameters) As Integer
+    Public Function Insert(objSystemParameters As clsSystemParameters) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -40,13 +38,12 @@ Public Class clsSystemParametersDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function Seleccionar(ByVal pintGrupoId As Integer) As DataTable
+    Public Function Seleccionar(pintGrupoId As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -71,7 +68,6 @@ Public Class clsSystemParametersDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
@@ -101,7 +97,6 @@ Public Class clsSystemParametersDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table

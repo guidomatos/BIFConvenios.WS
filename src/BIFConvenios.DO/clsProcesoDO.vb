@@ -1,11 +1,8 @@
 Imports ADODB
 Imports BIFConvenios.BE
 Imports DAL
-Imports Microsoft.VisualBasic
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Reflection
@@ -14,10 +11,10 @@ Public Class clsProcesoDO
         MyBase.New()
     End Sub
     ' Methods
-    Public Function ValidarFinProcesoBatch(ByVal codigo_proceso As String) As Boolean
-        Dim str As String = "0"
+    Public Function ValidarFinProcesoBatch(codigo_proceso As String) As Boolean
         Dim dasql As New DASQL
         Dim command As New SqlCommand
+        Dim str As String
         Try
             dasql.CommandProperties(command, "[dbo].[ValidarFinProcesoBatch]")
             dasql.AddParameter(command, "@codigo_proceso", codigo_proceso, SqlDbType.VarChar)
@@ -34,13 +31,12 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return str.Equals("1")
     End Function
 
-    Public Function ActualizaFlagCargaAutomatica(ByVal pstrTipo As String, ByVal pintFlag As Integer) As Integer
+    Public Function ActualizaFlagCargaAutomatica(pstrTipo As String, pintFlag As Integer) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -62,13 +58,12 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function AdicionarProceso(ByVal pobjProceso As clsProceso) As String
+    Public Function AdicionarProceso(pobjProceso As clsProceso) As String
         Dim str As String
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -93,7 +88,6 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return str
@@ -119,7 +113,6 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return flag
@@ -145,13 +138,12 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return flag
     End Function
 
-    Public Function ExportaRegistroResultadoProcesoPorFiltros(ByVal pstrCodigoProceso As String, ByVal pstrDocTrabajador As String, ByVal pstrNomTrabajador As String, ByVal pdecNumPagare As Decimal, ByVal pstrEstadoTrabajador As String, ByVal pstrZonaUse As String) As DataTable
+    Public Function ExportaRegistroResultadoProcesoPorFiltros(pstrCodigoProceso As String, pstrDocTrabajador As String, pstrNomTrabajador As String, pdecNumPagare As Decimal, pstrEstadoTrabajador As String, pstrZonaUse As String) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -181,13 +173,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ExportarRegistrosResultadoProceso(ByVal pstrCodigoProceso As String, ByVal pstrDocTrabajador As String, ByVal pstrNomTrabajador As String, ByVal pdecPagare As Decimal, ByVal pstrEstadoTrabajador As String, ByVal pintZonaUse As Integer) As DataTable
+    Public Function ExportarRegistrosResultadoProceso(pstrCodigoProceso As String, pstrDocTrabajador As String, pstrNomTrabajador As String, pdecPagare As Decimal, pstrEstadoTrabajador As String, pintZonaUse As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -217,13 +208,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function FinalProcesoCargaDescuentos(ByVal pstrCodigoProceso As String) As Boolean
+    Public Function FinalProcesoCargaDescuentos(pstrCodigoProceso As String) As Boolean
         Dim flag As Boolean
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -244,13 +234,12 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return flag
     End Function
 
-    Public Function GetResumenProcesoDescuentos(ByVal pstrCodigoProceso As String) As DataTable
+    Public Function GetResumenProcesoDescuentos(pstrCodigoProceso As String) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -275,13 +264,12 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function IniciarDescuentoEmpresa(ByVal pstrCodigoProceso As String, ByVal pstrUsuario As String) As Integer
+    Public Function IniciarDescuentoEmpresa(pstrCodigoProceso As String, pstrUsuario As String) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -303,13 +291,12 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function ObtenerDatosPagosIBSOnline(ByVal pstrCodigoProceso As String) As DataTable
+    Public Function ObtenerDatosPagosIBSOnline(pstrCodigoProceso As String) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -330,29 +317,28 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerInformacionProcesoIBSByFecha(ByVal pintDia As Integer) As DataTable
+    Public Function ObtenerInformacionProcesoIBSByFecha(pintDia As Integer) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
         Dim adapter As New OleDbDataAdapter
         Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
+            Dim aDODBRecordSet As Recordset = New RecordsetClass
             aDODBRecordSet = connection.Execute((((((((((("SELECT DISTINCT " & " CST.CUSNA1, CAST(CST.CUSTID as CHARACTER(2)) AS CUSTID, CAST (CST.CUSIDN AS CHARACTER (12)) AS CUSIDN, e.DLCCC AS DLECC, MAX(CST.CUSCUN) AS CUSCUN, CAST ( 2000 + c.DLVCA  AS CHARACTER ( 4 ) )  AS DLEAP,  " & " CAST(c.DLVCM AS CHARACTER(2)) AS DLEMP, e.dldpg AS DLDPG, CAST(YEAR(CURRENT DATE) ") & " AS CHARACTER(4)) CONCAT CASE LENGTH(TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2)))) " & " WHEN 1 THEN '0' CONCAT TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2))) ") & " WHEN 2 THEN SUBSTRING('00' CONCAT CAST(MONTH(CURRENT DATE) AS CHARACTER(2)), 3, 2) " & " END CONCAT CASE LENGTH(TRIM(CAST(DAY(CURRENT DATE) AS CHARACTER(2)))) WHEN 1 THEN '0' CONCAT TRIM(CAST(DAY(CURRENT DATE) ") & " AS CHARACTER(2))) WHEN 2 THEN SUBSTRING('00' CONCAT CAST(DAY(CURRENT DATE) AS CHARACTER(2)), 3, 2) END AS DLEFP " & " FROM         DLCRE e INNER JOIN ") & " DLCCR r ON e.DLACC = r.DLACC INNER JOIN " & " DLCCR c ON e.DLACC = c.DLACC AND c.DLSTS = '' INNER JOIN ") & " DLCNV CNV ON (E.DLCCC = CNV.CNVCUN AND E.DLAÑO = CNV.AÑCONV AND E.DLAGC = CNV.AGCONV AND E.DLCOC = CNV.COCONV) INNER JOIN " & " CUMST CST ON (CNV.CNVCUN = CST.CUSCUN) ") & " INNER JOIN DLEMP D ON ( D.DLECUN = E.DLCCC AND D.DLEAEN = c.DLVCA AND D.DLEMEN = c.DLVCM )" & " WHERE     (trim(r.DLSTS) = '') ") & " AND e.DLDPG = " & pintDia.ToString) & " GROUP BY CST.CUSNA1, CST.CUSTID, CST.CUSIDN, e.DLCCC, e.DLAÑO, e.DLAGC, e.DLCOC, e.DLCCY, e.DLACC, e.DLCEM, e.DLNCL, e.DLAPP, e.DLAPM, ") & " e.DLPRN, e.DLSGN, e.DLCCR, e.DLPLA, e.DLCUS, c.DLNCT, c.DLVCA, c.DLVCM, c.DLVCD, e.DLSTS, e.DLDPG " & " ORDER BY 1, DLEMP"), Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
             connection.Close()
             connection = Nothing
             adapter.Fill(dataSet, aDODBRecordSet, "dtResult")
-            table = dataSet.Tables(0)
+            Dim table As DataTable = dataSet.Tables(0)
             If (table.Rows.Count = 0) Then
                 Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
@@ -361,35 +347,33 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception1
             ProjectData.SetProjectError(ex)
             connection.Close()
-            connection = Nothing
             Throw ex
         End Try
         Return table2
     End Function
 
-    Public Function ObtenerInformacionProcesosIBS(ByVal pstrFiltro As String) As DataTable
+    Public Function ObtenerInformacionProcesosIBS(pstrFiltro As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
         Dim adapter As New OleDbDataAdapter
         Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
-        Dim str2 As String = String.Empty
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
-            str2 = ((((((("SELECT DISTINCT " & " CST.CUSNA1, CAST(CST.CUSTID as CHARACTER(2)) AS CUSTID, CAST (CST.CUSIDN AS CHARACTER (12)) AS CUSIDN, e.DLCCC AS DLECC, " & ChrW(9) & "CAST ( 2000 + c.DLVCA  AS CHARACTER ( 4 ) )  AS DLEAP, MAX(CST.CUSCUN) AS CUSCUN, " & " CAST(c.DLVCM AS CHARACTER(2)) AS DLEMP, CAST(YEAR(CURRENT DATE) ") & " AS CHARACTER(4)) CONCAT CASE LENGTH(TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2)))) " & " WHEN 1 THEN '0' CONCAT TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2))) ") & " WHEN 2 THEN SUBSTRING('00' CONCAT CAST(MONTH(CURRENT DATE) AS CHARACTER(2)), 3, 2) " & " END CONCAT CASE LENGTH(TRIM(CAST(DAY(CURRENT DATE) AS CHARACTER(2)))) WHEN 1 THEN '0' CONCAT TRIM(CAST(DAY(CURRENT DATE) ") & " AS CHARACTER(2))) WHEN 2 THEN SUBSTRING('00' CONCAT CAST(DAY(CURRENT DATE) AS CHARACTER(2)), 3, 2) END AS DLEFP " & " FROM         DLCRE e INNER JOIN ") & " DLCCR r ON e.DLACC = r.DLACC INNER JOIN " & " DLCCR c ON e.DLACC = c.DLACC AND c.DLSTS = '' INNER JOIN ") & " DLCNV CNV ON (E.DLCCC = CNV.CNVCUN AND E.DLAÑO = CNV.AÑCONV AND E.DLAGC = CNV.AGCONV AND E.DLCOC = CNV.COCONV) INNER JOIN " & " CUMST CST ON (CNV.CNVCUN = CST.CUSCUN) ") & " INNER JOIN DLEMP D ON ( D.DLECUN = E.DLCCC AND D.DLEAEN = c.DLVCA AND D.DLEMEN = c.DLVCM )" & " WHERE     (trim(r.DLSTS) = '') ")
-            If (Strings.Trim(pstrFiltro) <> "") Then
+            Dim str2 As String = ((((((("SELECT DISTINCT " & " CST.CUSNA1, CAST(CST.CUSTID as CHARACTER(2)) AS CUSTID, CAST (CST.CUSIDN AS CHARACTER (12)) AS CUSIDN, e.DLCCC AS DLECC, " & ChrW(9) & "CAST ( 2000 + c.DLVCA  AS CHARACTER ( 4 ) )  AS DLEAP, MAX(CST.CUSCUN) AS CUSCUN, " & " CAST(c.DLVCM AS CHARACTER(2)) AS DLEMP, CAST(YEAR(CURRENT DATE) ") & " AS CHARACTER(4)) CONCAT CASE LENGTH(TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2)))) " & " WHEN 1 THEN '0' CONCAT TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2))) ") & " WHEN 2 THEN SUBSTRING('00' CONCAT CAST(MONTH(CURRENT DATE) AS CHARACTER(2)), 3, 2) " & " END CONCAT CASE LENGTH(TRIM(CAST(DAY(CURRENT DATE) AS CHARACTER(2)))) WHEN 1 THEN '0' CONCAT TRIM(CAST(DAY(CURRENT DATE) ") & " AS CHARACTER(2))) WHEN 2 THEN SUBSTRING('00' CONCAT CAST(DAY(CURRENT DATE) AS CHARACTER(2)), 3, 2) END AS DLEFP " & " FROM         DLCRE e INNER JOIN ") & " DLCCR r ON e.DLACC = r.DLACC INNER JOIN " & " DLCCR c ON e.DLACC = c.DLACC AND c.DLSTS = '' INNER JOIN ") & " DLCNV CNV ON (E.DLCCC = CNV.CNVCUN AND E.DLAÑO = CNV.AÑCONV AND E.DLAGC = CNV.AGCONV AND E.DLCOC = CNV.COCONV) INNER JOIN " & " CUMST CST ON (CNV.CNVCUN = CST.CUSCUN) ") & " INNER JOIN DLEMP D ON ( D.DLECUN = E.DLCCC AND D.DLEAEN = c.DLVCA AND D.DLEMEN = c.DLVCM )" & " WHERE     (trim(r.DLSTS) = '') ")
+            If (Trim(pstrFiltro) <> "") Then
                 str2 = (str2 & " AND CST.CUSNA1 LIKE '" & Strings.Trim(pstrFiltro) & "%' ")
             End If
             str2 = str2 & " GROUP BY CST.CUSNA1, CST.CUSTID, CST.CUSIDN, e.DLCCC, e.DLAÑO, e.DLAGC, e.DLCOC, e.DLCCY, e.DLACC, e.DLCEM, e.DLNCL, e.DLAPP, e.DLAPM, " & " e.DLPRN, e.DLSGN, e.DLCCR, e.DLPLA, e.DLCUS, c.DLNCT, c.DLVCA, c.DLVCM, c.DLVCD, e.DLSTS " & " ORDER BY 1, DLEMP"
+            Dim aDODBRecordSet As Recordset = New RecordsetClass
             aDODBRecordSet = connection.Execute(str2, Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
             connection.Close()
             connection = Nothing
             adapter.Fill(dataSet, aDODBRecordSet, "dtResult")
-            table = dataSet.Tables(0)
+            Dim table As DataTable = dataSet.Tables(0)
             If (table.Rows.Count = 0) Then
                 Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
@@ -398,7 +382,6 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception1
             ProjectData.SetProjectError(ex)
             connection.Close()
-            connection = Nothing
             Throw ex
         End Try
         Return table2
@@ -427,31 +410,30 @@ Public Class clsProcesoDO
             'dasql = Nothing
             Throw ex
         Finally
-            If Not dasql Is Nothing Then
+            If dasql IsNot Nothing Then
                 dasql.ConnectionClose()
-                dasql = Nothing
             End If
         End Try
         Return table
     End Function
 
-    Public Function ObtenerListaProcesosByCodigoIBS(ByVal pstrCodigoIBS As String) As DataTable
+    Public Function ObtenerListaProcesosByCodigoIBS(pstrCodigoIBS As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
         Dim adapter As New OleDbDataAdapter
         Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
+            Dim aDODBRecordSet As Recordset = New RecordsetClass
             aDODBRecordSet = connection.Execute((((((((((("SELECT DISTINCT " & " CST.CUSNA1, CAST(CST.CUSTID as CHARACTER(2)) AS CUSTID, CAST (CST.CUSIDN AS CHARACTER (12)) AS CUSIDN, e.DLCCC AS DLECC, " & ChrW(9) & "CAST ( 2000 + c.DLVCA  AS CHARACTER ( 4 ) )  AS DLEAP, MAX(CST.CUSCUN) AS CUSCUN, " & " CAST(c.DLVCM AS CHARACTER(2)) AS DLEMP, CAST(YEAR(CURRENT DATE) ") & " AS CHARACTER(4)) CONCAT CASE LENGTH(TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2)))) " & " WHEN 1 THEN '0' CONCAT TRIM(CAST(MONTH(CURRENT DATE) AS CHARACTER(2))) ") & " WHEN 2 THEN SUBSTRING('00' CONCAT CAST(MONTH(CURRENT DATE) AS CHARACTER(2)), 3, 2) " & " END CONCAT CASE LENGTH(TRIM(CAST(DAY(CURRENT DATE) AS CHARACTER(2)))) WHEN 1 THEN '0' CONCAT TRIM(CAST(DAY(CURRENT DATE) ") & " AS CHARACTER(2))) WHEN 2 THEN SUBSTRING('00' CONCAT CAST(DAY(CURRENT DATE) AS CHARACTER(2)), 3, 2) END AS DLEFP " & " FROM         DLCRE e INNER JOIN ") & " DLCCR r ON e.DLACC = r.DLACC INNER JOIN " & " DLCCR c ON e.DLACC = c.DLACC AND c.DLSTS = '' INNER JOIN ") & " DLCNV CNV ON (E.DLCCC = CNV.CNVCUN AND E.DLAÑO = CNV.AÑCONV AND E.DLAGC = CNV.AGCONV AND E.DLCOC = CNV.COCONV) INNER JOIN " & " CUMST CST ON (CNV.CNVCUN = CST.CUSCUN) ") & " INNER JOIN DLEMP D ON ( D.DLECUN = E.DLCCC AND D.DLEAEN = c.DLVCA AND D.DLEMEN = c.DLVCM )" & " WHERE     (trim(r.DLSTS) = '') ") & " AND CST.CUSCUN = " & Strings.Trim(pstrCodigoIBS)) & " GROUP BY CST.CUSNA1, CST.CUSTID, CST.CUSIDN, e.DLCCC, e.DLAÑO, e.DLAGC, e.DLCOC, e.DLCCY, e.DLACC, e.DLCEM, e.DLNCL, e.DLAPP, e.DLAPM, ") & " e.DLPRN, e.DLSGN, e.DLCCR, e.DLPLA, e.DLCUS, c.DLNCT, c.DLVCA, c.DLVCM, c.DLVCD, e.DLSTS " & " ORDER BY 1, DLEMP"), Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
             connection.Close()
             connection = Nothing
             adapter.Fill(dataSet, aDODBRecordSet, "dtResult")
-            table = dataSet.Tables(0)
+            Dim table As DataTable = dataSet.Tables(0)
             If (table.Rows.Count = 0) Then
                 Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
@@ -460,13 +442,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception1
             ProjectData.SetProjectError(ex)
             connection.Close()
-            connection = Nothing
             Throw ex
         End Try
         Return table2
     End Function
 
-    Public Function ObtenerListaProcesosDescuentoCompletadoByCodigoProceso(ByVal pstrAnioPeriodo As String, ByVal pstrMesPeriodo As String, ByVal pstrCodigoProceso As String) As DataTable
+    Public Function ObtenerListaProcesosDescuentoCompletadoByCodigoProceso(pstrAnioPeriodo As String, pstrMesPeriodo As String, pstrCodigoProceso As String) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -493,13 +474,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerListaProcesosEsperaArchivoDescuento(ByVal pstrAnioPeriodo As String, ByVal pstrMesPeriodo As String) As DataTable
+    Public Function ObtenerListaProcesosEsperaArchivoDescuento(pstrAnioPeriodo As String, pstrMesPeriodo As String) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -525,13 +505,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerListaProcesosEsperaArchivoDescuentoByCliente(ByVal pstrAnioPeriodo As String, ByVal pstrMesPeriodo As String, ByVal pintCodigoCliente As Integer) As DataTable
+    Public Function ObtenerListaProcesosEsperaArchivoDescuentoByCliente(pstrAnioPeriodo As String, pstrMesPeriodo As String, pintCodigoCliente As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -558,13 +537,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerListaProcesosEsperaArchivoDescuentoByNombreCliente(ByVal pstrAnioPeriodo As String, ByVal pstrMesPeriodo As String, ByVal pstrNombreCliente As String) As DataTable
+    Public Function ObtenerListaProcesosEsperaArchivoDescuentoByNombreCliente(pstrAnioPeriodo As String, pstrMesPeriodo As String, pstrNombreCliente As String) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -591,7 +569,6 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
@@ -621,13 +598,12 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerRegistrosResultadoProcesoDescuentosPagoAutomatico(ByVal pintCodigoProcesoAutomatico As Integer) As DataTable
+    Public Function ObtenerRegistrosResultadoProcesoDescuentosPagoAutomatico(pintCodigoProcesoAutomatico As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -652,20 +628,18 @@ Public Class clsProcesoDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ObtenerResumenPagosIBS(ByVal codEmpresa As String, ByVal fechaInicial As String, ByVal fechaFinal As String, ByVal lote As String) As DataTable
+    Public Function ObtenerResumenPagosIBS(codEmpresa As String, fechaInicial As String, fechaFinal As String, lote As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
         Dim adapter As New OleDbDataAdapter
         Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
@@ -674,12 +648,13 @@ Public Class clsProcesoDO
             strArray(10) = "' AND '"
             strArray(11) = fechaFinal
             strArray(12) = "'  GROUP BY DLEMC, DLCTC, DLCNP  ORDER BY dlcnp "
+            Dim aDODBRecordSet As Recordset = CType(New RecordsetClass, Recordset)
             aDODBRecordSet = connection.Execute(String.Concat(strArray), Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
             connection.Close()
             connection = Nothing
             adapter.Fill(dataSet, aDODBRecordSet, "ResumenDLCPG")
-            table = dataSet.Tables(0)
+            Dim table As DataTable = dataSet.Tables(0)
             If (table.Rows.Count = 0) Then
                 Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
@@ -688,20 +663,18 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception1
             ProjectData.SetProjectError(ex)
             connection.Close()
-            connection = Nothing
             Throw ex
         End Try
         Return table2
     End Function
 
-    Public Function ObtenerResumenProcesoIBS(ByVal codEmpresa As String, ByVal fechaInicial As String, ByVal fechaFinal As String) As DataTable
+    Public Function ObtenerResumenProcesoIBS(codEmpresa As String, fechaInicial As String, fechaFinal As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
         Dim adapter As New OleDbDataAdapter
         Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
@@ -710,12 +683,13 @@ Public Class clsProcesoDO
             strArray(10) = "' AND (DLS.DEATYP = 'CONV')  AND A.ACMCUN = "
             strArray(11) = codEmpresa
             strArray(12) = " AND TRACDE = '3Y' and TRANAR LIKE 'PAGO CUOTA%' GROUP BY A.ACMCUN, t.TRAACR, 0, DLS.DEASTS"
+            Dim aDODBRecordSet As Recordset = New RecordsetClass
             aDODBRecordSet = connection.Execute(String.Concat(strArray), Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
             connection.Close()
             connection = Nothing
             adapter.Fill(dataSet, aDODBRecordSet, "ResumenTD")
-            table = dataSet.Tables(0)
+            Dim table As DataTable = dataSet.Tables(0)
             If (table.Rows.Count = 0) Then
                 Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
@@ -724,16 +698,15 @@ Public Class clsProcesoDO
             Dim ex As HandledException = exception1
             ProjectData.SetProjectError(ex)
             connection.Close()
-            connection = Nothing
             Throw ex
         End Try
         Return table2
     End Function
 
-    Public Function ObtieneRegistroResultadoProcesoPorFiltros(ByVal pstrCodigoProceso As String, ByVal pstrDocTrabajador As String, ByVal pstrNomTrabajador As String, ByVal pdecNumPagare As Decimal, ByVal pstrEstadoTrabajador As String, ByVal pstrZonaUse As String) As DataTable
-        Dim dataTable As System.Data.DataTable
-        Dim oCon As DASQL = New DASQL()
-        Dim oCommand As SqlCommand = New SqlCommand()
+    Public Function ObtieneRegistroResultadoProcesoPorFiltros(pstrCodigoProceso As String, pstrDocTrabajador As String, pstrNomTrabajador As String, pdecNumPagare As Decimal, pstrEstadoTrabajador As String, pstrZonaUse As String) As DataTable
+        Dim dataTable As DataTable
+        Dim oCon As New DASQL()
+        Dim oCommand As New SqlCommand()
         Try
             oCon.CommandProperties(oCommand, "[dbo].[GetRegistrosResultadoProcesoByFiltros]")
             oCon.AddParameter(oCommand, "@codigo_proceso", pstrCodigoProceso, SqlDbType.UniqueIdentifier)
@@ -742,25 +715,24 @@ Public Class clsProcesoDO
             oCon.AddParameter(oCommand, "@DLNP", pdecNumPagare, SqlDbType.Decimal)
             oCon.AddParameter(oCommand, "@EstadoTrabajador", pstrEstadoTrabajador, SqlDbType.VarChar)
             oCon.AddParameter(oCommand, "@ZonaUse", pstrZonaUse, SqlDbType.VarChar)
-            Dim _dt As System.Data.DataTable = New System.Data.DataTable()
+            Dim _dt As DataTable = New DataTable()
             _dt = oCon.ExecuteReader(oCommand)
             If (_dt.Rows.Count = 0) Then
-                Throw New Resource.HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
+                Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
             oCon.ConnectionClose()
             oCon = Nothing
             dataTable = _dt
-        Catch sqlException As System.Data.SqlClient.SqlException
+        Catch sqlException As SqlException
             ProjectData.SetProjectError(sqlException)
-            Dim ex1 As System.Data.SqlClient.SqlException = sqlException
+            Dim ex1 As SqlException = sqlException
             oCon.ConnectionClose()
             oCon = Nothing
             Throw ex1
-        Catch handledException As Resource.HandledException
+        Catch handledException As HandledException
             ProjectData.SetProjectError(handledException)
-            Dim ex As Resource.HandledException = handledException
+            Dim ex As HandledException = handledException
             oCon.ConnectionClose()
-            oCon = Nothing
             Throw ex
         End Try
         Return dataTable

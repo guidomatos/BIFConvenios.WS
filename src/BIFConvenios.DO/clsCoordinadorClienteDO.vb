@@ -2,15 +2,14 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
+
 Public Class clsCoordinadorClienteDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function ChangeStatus(ByVal pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
+    Public Function ChangeStatus(pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -34,13 +33,12 @@ Public Class clsCoordinadorClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function Insert(ByVal pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
+    Public Function Insert(pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -70,13 +68,12 @@ Public Class clsCoordinadorClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function ObtieneCoordinadorPorCriterio(ByVal pintCodCoordinador As Integer, ByVal pintCodCliente As Integer, ByVal pintEstado As Integer) As DataTable
+    Public Function ObtieneCoordinadorPorCriterio(pintCodCoordinador As Integer, pintCodCliente As Integer, pintEstado As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -103,13 +100,12 @@ Public Class clsCoordinadorClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function Update(ByVal pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
+    Public Function Update(pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -140,21 +136,16 @@ Public Class clsCoordinadorClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    '***************************************************************
-    'TI-EA2019-11648
-    'Creado por: magno Sanchez
-    'Fecha Creacion: 04/07/2019
-    'Descripcion: se agrego metodod para el cambio de estado del coordinador - debera copiarse para el pase
-    Public Function ChangeStatusCoordinador(ByVal pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
+    'Descripcion: se agrego metodod para el cambio de estado del coordinador
+    Public Function ChangeStatusCoordinador(pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
         Dim num As Integer
-        Dim oCon As DASQL = New DASQL()
-        Dim oCommand As SqlCommand = New SqlCommand()
+        Dim oCon As New DASQL()
+        Dim oCommand As New SqlCommand()
         Try
             oCon.CommandProperties(oCommand, "[dbo].[Coordinador_ClienteChangeStatus]")
             oCon.AddParameter(oCommand, "@iCoordinadorId", pobjCoordinadorCliente.CodigoCoordinador, SqlDbType.Int)
@@ -165,71 +156,57 @@ Public Class clsCoordinadorClienteDO
             oCon.ConnectionClose()
             oCon = Nothing
             num = 1
-        Catch handledException As Resource.HandledException
+        Catch handledException As HandledException
             ProjectData.SetProjectError(handledException)
-            Dim ex1 As Resource.HandledException = handledException
+            Dim ex1 As HandledException = handledException
             oCon.ConnectionClose()
             oCon = Nothing
             Throw ex1
-        Catch exception As System.Exception
+        Catch exception As Exception
             ProjectData.SetProjectError(exception)
-            Dim ex2 As System.Exception = exception
+            Dim ex2 As Exception = exception
             oCon.ConnectionClose()
-            oCon = Nothing
             Throw ex2
         End Try
         Return num
     End Function
-    '***************************************************************
-
-    '***************************************************************
-    'TI-EA2019-11648
-    'Creado por: magno Sanchez
-    'Fecha Creacion: 04/07/2019
     'Descripcion: se agrego metodo para obtener coordinadores por cliente - debera copiarse para el pase
-    Public Function ObtieneCoordinadorClientePorCriterio(ByVal pintCodCoordinador As Integer, ByVal pintCodCliente As Integer, ByVal pintEstado As Integer) As System.Data.DataTable
-        Dim dataTable As System.Data.DataTable
-        Dim oCon As DASQL = New DASQL()
-        Dim oCommand As SqlCommand = New SqlCommand()
+    Public Function ObtieneCoordinadorClientePorCriterio(pintCodCoordinador As Integer, pintCodCliente As Integer, pintEstado As Integer) As DataTable
+        Dim dataTable As DataTable
+        Dim oCon As New DASQL()
+        Dim oCommand As New SqlCommand()
         Try
             oCon.CommandProperties(oCommand, "[dbo].[Coordinador_ClienteSelect]")
             oCon.AddParameter(oCommand, "@iCoordinadorId", pintCodCoordinador, SqlDbType.Int)
             oCon.AddParameter(oCommand, "@iClienteId", pintCodCliente, SqlDbType.Int)
             oCon.AddParameter(oCommand, "@iEstado", pintEstado, SqlDbType.Int)
-            Dim _dt As System.Data.DataTable = New System.Data.DataTable()
+            Dim _dt As New DataTable()
             _dt = oCon.ExecuteReader(oCommand)
             If (_dt.Rows.Count = 0) Then
-                Throw New Resource.HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
+                Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
             oCon.ConnectionClose()
             oCon = Nothing
             dataTable = _dt
-        Catch handledException As Resource.HandledException
+        Catch handledException As HandledException
             ProjectData.SetProjectError(handledException)
-            Dim ex1 As Resource.HandledException = handledException
+            Dim ex1 As HandledException = handledException
             oCon.ConnectionClose()
             oCon = Nothing
             Throw ex1
-        Catch exception As System.Exception
+        Catch exception As Exception
             ProjectData.SetProjectError(exception)
-            Dim ex2 As System.Exception = exception
+            Dim ex2 As Exception = exception
             oCon.ConnectionClose()
-            oCon = Nothing
             Throw ex2
         End Try
         Return dataTable
     End Function
-    '***************************************************************
-
-    '***************************************************************
-    'TI-EA2019-11648
-    'Creado por: magno Sanchez
-    'Fecha Creacion: 04/07/2019
     'Descripcion: se agrego metodo insertar coordinadores por cliente - debera copiarse para el pase
-    Public Function InsertCoordinadorPersona(ByVal pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
+    Public Function InsertCoordinadorPersona(pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
         Dim num As Integer
-        Dim oCon As DASQL = New DASQL()
-        Dim oCommand As SqlCommand = New SqlCommand()
+        Dim oCon As New DASQL()
+        Dim oCommand As New SqlCommand()
         Try
             oCon.CommandProperties(oCommand, "[dbo].[Coordinador_ClienteInsert]")
             oCon.AddParameter(oCommand, "@iClienteId", pobjCoordinadorCliente.CodigoCliente, SqlDbType.Int)
@@ -246,32 +223,25 @@ Public Class clsCoordinadorClienteDO
             oCon.ConnectionClose()
             oCon = Nothing
             num = 1
-        Catch handledException As Resource.HandledException
+        Catch handledException As HandledException
             ProjectData.SetProjectError(handledException)
-            Dim ex1 As Resource.HandledException = handledException
+            Dim ex1 As HandledException = handledException
             oCon.ConnectionClose()
             oCon = Nothing
             Throw ex1
-        Catch exception As System.Exception
+        Catch exception As Exception
             ProjectData.SetProjectError(exception)
             Dim ex2 As System.Exception = exception
             oCon.ConnectionClose()
-            oCon = Nothing
             Throw ex2
         End Try
         Return num
     End Function
-    '***************************************************************
-
-    '***************************************************************
-    'TI-EA2019-11648
-    'Creado por: magno Sanchez
-    'Fecha Creacion: 04/07/2019
     'Descripcion: se agrego metodo actualizar coordinadores por cliente - debera copiarse para el pase
-    Public Function UpdateCoordinadorPersona(ByVal pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
+    Public Function UpdateCoordinadorPersona(pobjCoordinadorCliente As clsCoordinadorCliente) As Integer
         Dim num As Integer
-        Dim oCon As DASQL = New DASQL()
-        Dim oCommand As SqlCommand = New SqlCommand()
+        Dim oCon As New DASQL()
+        Dim oCommand As New SqlCommand()
         Try
             oCon.CommandProperties(oCommand, "[dbo].[Coordinador_ClienteUpdate]")
             oCon.AddParameter(oCommand, "@iCoordinadorId", pobjCoordinadorCliente.CodigoCoordinador, SqlDbType.Int)
@@ -289,9 +259,9 @@ Public Class clsCoordinadorClienteDO
             oCon.ConnectionClose()
             oCon = Nothing
             num = 1
-        Catch handledException As Resource.HandledException
+        Catch handledException As HandledException
             ProjectData.SetProjectError(handledException)
-            Dim ex1 As Resource.HandledException = handledException
+            Dim ex1 As HandledException = handledException
             oCon.ConnectionClose()
             oCon = Nothing
             Throw ex1
@@ -299,11 +269,9 @@ Public Class clsCoordinadorClienteDO
             ProjectData.SetProjectError(exception)
             Dim ex2 As System.Exception = exception
             oCon.ConnectionClose()
-            oCon = Nothing
             Throw ex2
         End Try
         Return num
     End Function
-    '***************************************************************
 
 End Class

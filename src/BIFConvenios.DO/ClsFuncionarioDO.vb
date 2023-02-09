@@ -1,8 +1,6 @@
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class ClsFuncionarioDO
     <DebuggerNonUserCode()> Public Sub New()
@@ -33,7 +31,6 @@ Public Class ClsFuncionarioDO
             Dim ex As HandledException = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table

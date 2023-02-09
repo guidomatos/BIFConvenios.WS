@@ -2,15 +2,13 @@ Imports BIFConvenios.BE
 Imports DAL
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.SqlClient
 Public Class clsLogEnvioCorreosDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function Insert(ByVal objLogEnvioCorreos As clsLogEnvioCorreo) As Integer
+    Public Function Insert(objLogEnvioCorreos As clsLogEnvioCorreo) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -40,13 +38,12 @@ Public Class clsLogEnvioCorreosDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function Seleccionar(ByVal objLogEnvioCorreo As clsLogEnvioCorreo) As DataTable
+    Public Function Seleccionar(objLogEnvioCorreo As clsLogEnvioCorreo) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -76,7 +73,6 @@ Public Class clsLogEnvioCorreosDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table

@@ -1,11 +1,8 @@
 Imports ADODB
 Imports BIFConvenios.BE
 Imports DAL
-Imports Microsoft.VisualBasic
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
 Imports System.Data.OleDb
 Imports System.Data.SqlClient
 Imports System.Reflection
@@ -14,7 +11,7 @@ Public Class clsClienteDO
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
-    Public Function ActualizarCliente(ByVal pobjCliente As clsCliente) As Integer
+    Public Function ActualizarCliente(pobjCliente As clsCliente) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -60,13 +57,12 @@ Public Class clsClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function EliminarCliente(ByVal pintCodigoCliente As Integer, ByVal pstrUsuario As String) As Integer
+    Public Function EliminarCliente(pintCodigoCliente As Integer, pstrUsuario As String) As Integer
         Dim num As Integer
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -88,13 +84,12 @@ Public Class clsClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return num
     End Function
 
-    Public Function ExisteClienteBifConvenio(ByVal pstrTipoDocumento As Object, ByVal pstrNumeroDocumento As Object) As DataTable
+    Public Function ExisteClienteBifConvenio(pstrTipoDocumento As Object, pstrNumeroDocumento As Object) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -120,23 +115,20 @@ Public Class clsClienteDO
             Dim ex As Exception = exception3
             ProjectData.SetProjectError(ex)
             dasql.ConnectionClose()
-            dasql = Nothing
             Throw ex
         End Try
         Return table
     End Function
 
-    Public Function ExisteClienteDesdeAS400PorCodIBS(ByVal pintCodIBS As Integer) As Integer
+    Public Function ExisteClienteDesdeAS400PorCodIBS(pintCodIBS As Integer) As Integer
         Dim intContar As Integer
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
-        Dim adapter As New OleDbDataAdapter
-        Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
+            Dim aDODBRecordSet As Recordset = New RecordsetClass
             'aDODBRecordSet = connection.Execute((((("SELECT DISTINCT CUMST.CUSCUN AS CUSCUN," & ChrW(9) & "CUMST.CUSTID AS TIPODOCUMENTO, CUMST.CUSIDN AS NUMERODOCUMENTO," & " CUMST.CUSNA1 AS NOMEMPRESA, CNV.OFICINA AS CODOFICINA, OFI.BRNNME AS NOMOFICINA, CNV.GESTOR AS CODGESTOR,") & " CASE WHEN TRIM(GEST.GSTNOM)  = '' AND TRIM(GEST.GSTPAT) = '' THEN '' ELSE TRIM(GEST.GSTNOM) CONCAT ', ' CONCAT TRIM(GEST.GSTPAT) END AS NOMGESTOR," & " CNV.FUNCIO AS CODFUNCIONARIO, FUNC.FUNNOM AS NOMFUNCIONARIO, FUNC.FUNCOR AS CORREOFUNCIONARIO ") & " FROM CUMST CUMST LEFT OUTER JOIN DLCNV CNV ON CUMST.CUSCUN = CNV.CNVCUN LEFT OUTER JOIN CNTRLBRN AS OFI ON CNV.OFICINA = OFI.BRNNUM" & " LEFT OUTER JOIN DLGSCONV AS GEST ON CNV.GESTOR = GEST.GSTCOD LEFT OUTER JOIN DLFNCONV AS FUNC ON CNV.FUNCIO = FUNC.FUNCOD") & " WHERE CUMST.CUSCUN=" & Conversions.ToString(pintCodIBS)), Missing.Value, -1)
             aDODBRecordSet = connection.Execute((((("SELECT DISTINCT CUMST.CUSCUN AS CUSCUN," & ChrW(9) & "CUMST.CUSTID AS TIPODOCUMENTO, CUMST.CUSIDN AS NUMERODOCUMENTO, CUMST.CUSNA1 AS NOMEMPRESA, CNV.OFICINA AS CODOFICINA, OFI.BRNNME AS NOMOFICINA, CNV.GESTOR AS CODGESTOR,") & " CASE WHEN TRIM(GEST.GSTNOM)  = '' AND TRIM(GEST.GSTPAT) = '' THEN '' ELSE TRIM(GEST.GSTNOM) CONCAT ', ' CONCAT TRIM(GEST.GSTPAT) END AS NOMGESTOR," & " CNV.FUNCIO AS CODFUNCIONARIO, FUNC.FUNNOM AS NOMFUNCIONARIO, FUNC.FUNCOR AS CORREOFUNCIONARIO ") & " FROM CUMST CUMST LEFT OUTER JOIN DLCNV CNV ON CUMST.CUSCUN = CNV.CNVCUN LEFT OUTER JOIN CNTRLBRN AS OFI ON CNV.OFICINA = OFI.BRNNUM" & " LEFT OUTER JOIN DLGSCONV AS GEST ON CNV.GESTOR = GEST.GSTCOD LEFT OUTER JOIN DLFNCONV AS FUNC ON CNV.FUNCIO = FUNC.FUNCOD") & " WHERE CUMST.CUSCUN=" & Conversions.ToString(pintCodIBS)), Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
@@ -156,32 +148,31 @@ Public Class clsClienteDO
             'connection = Nothing
             Throw ex
         Finally
-            If (Not connection Is Nothing) And connection.State = ConnectionState.Open Then
+            If (connection IsNot Nothing) And connection.State = ConnectionState.Open Then
                 connection.Close()
-                connection = Nothing
             End If
         End Try
         Return intContar
     End Function
 
-    Public Function ObtenerClienteDesdeAS400PorCodIBS(ByVal pintCodIBS As Integer) As DataTable
+    Public Function ObtenerClienteDesdeAS400PorCodIBS(pintCodIBS As Integer) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
         Dim adapter As New OleDbDataAdapter
         Dim dataSet As New DataSet
-        Dim table As New DataTable
-        Dim aDODBRecordSet As Recordset = New RecordsetClass
+
         Try
             connection.CursorLocation = CursorLocationEnum.adUseClient
             connection.Open(connectionString, "", "", -1)
+            Dim aDODBRecordSet As Recordset = CType(New RecordsetClass, Recordset)
             'aDODBRecordSet = connection.Execute((((("SELECT DISTINCT CUMST.CUSCUN AS CUSCUN," & ChrW(9) & "CUMST.CUSTID AS TIPODOCUMENTO, CUMST.CUSIDN AS NUMERODOCUMENTO," & " CUMST.CUSNA1 AS NOMEMPRESA, CNV.OFICINA AS CODOFICINA, OFI.BRNNME AS NOMOFICINA, CNV.GESTOR AS CODGESTOR,") & " CASE WHEN TRIM(GEST.GSTNOM)  = '' AND TRIM(GEST.GSTPAT) = '' THEN '' ELSE TRIM(GEST.GSTNOM) CONCAT ', ' CONCAT TRIM(GEST.GSTPAT) END AS NOMGESTOR," & " CNV.FUNCIO AS CODFUNCIONARIO, FUNC.FUNNOM AS NOMFUNCIONARIO, FUNC.FUNCOR AS CORREOFUNCIONARIO ") & " FROM CUMST CUMST LEFT OUTER JOIN DLCNV CNV ON CUMST.CUSCUN = CNV.CNVCUN LEFT OUTER JOIN CNTRLBRN AS OFI ON CNV.OFICINA = OFI.BRNNUM" & " LEFT OUTER JOIN DLGSCONV AS GEST ON CNV.GESTOR = GEST.GSTCOD LEFT OUTER JOIN DLFNCONV AS FUNC ON CNV.FUNCIO = FUNC.FUNCOD") & " WHERE CUMST.CUSCUN=" & Conversions.ToString(pintCodIBS)), Missing.Value, -1)
             aDODBRecordSet = connection.Execute((((("SELECT DISTINCT CUMST.CUSCUN AS CUSCUN," & ChrW(9) & "CUMST.CUSTID AS TIPODOCUMENTO, CUMST.CUSIDN AS NUMERODOCUMENTO, CUMST.CUSNA1 AS NOMEMPRESA, CNV.OFICINA AS CODOFICINA, OFI.BRNNME AS NOMOFICINA, CNV.GESTOR AS CODGESTOR,") & " CASE WHEN TRIM(GEST.GSTNOM)  = '' AND TRIM(GEST.GSTPAT) = '' THEN '' ELSE TRIM(GEST.GSTNOM) CONCAT ', ' CONCAT TRIM(GEST.GSTPAT) END AS NOMGESTOR," & " CNV.FUNCIO AS CODFUNCIONARIO, FUNC.FUNNOM AS NOMFUNCIONARIO, FUNC.FUNCOR AS CORREOFUNCIONARIO ") & " FROM CUMST CUMST LEFT OUTER JOIN DLCNV CNV ON CUMST.CUSCUN = CNV.CNVCUN LEFT OUTER JOIN CNTRLBRN AS OFI ON CNV.OFICINA = OFI.BRNNUM" & " LEFT OUTER JOIN DLGSCONV AS GEST ON CNV.GESTOR = GEST.GSTCOD LEFT OUTER JOIN DLFNCONV AS FUNC ON CNV.FUNCIO = FUNC.FUNCOD") & " WHERE CUMST.CUSCUN=" & Conversions.ToString(pintCodIBS)), Missing.Value, -1)
             aDODBRecordSet.ActiveConnection = Nothing
             'connection.Close()
             'connection = Nothing
             adapter.Fill(dataSet, aDODBRecordSet, "dtClienteIBS")
-            table = dataSet.Tables(0)
+            Dim table As DataTable = dataSet.Tables(0)
             If (table.Rows.Count = 0) Then
                 Throw New HandledException(-400, clsConstantsGeneric.NoRecords, clsConstantsGeneric.NoRecordsFull)
             End If
@@ -207,7 +198,7 @@ Public Class clsClienteDO
         Return table2
     End Function
 
-    Public Function ObtenerClienteDesdeAS400PorDocumento(ByVal pstrTipoDocumento As String, ByVal pstrNumeroDocumento As String) As DataTable
+    Public Function ObtenerClienteDesdeAS400PorDocumento(pstrTipoDocumento As String, pstrNumeroDocumento As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
@@ -249,7 +240,7 @@ Public Class clsClienteDO
         Return table2
     End Function
 
-    Public Function ObtenerClientePorCodigo(ByVal pintCodigoCliente As Integer) As DataTable
+    Public Function ObtenerClientePorCodigo(pintCodigoCliente As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -280,7 +271,7 @@ Public Class clsClienteDO
         Return table
     End Function
 
-    Public Function ObtenerEmailsEnviosClientes(ByVal pintCodigoCliente As String) As String
+    Public Function ObtenerEmailsEnviosClientes(pintCodigoCliente As String) As String
         Dim str As String
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -308,7 +299,7 @@ Public Class clsClienteDO
         Return str
     End Function
 
-    Public Function ObtenerFuncionarioConvenioPorCodigoIBSDesdeAS400(ByVal pintCodIBS As Integer) As DataTable
+    Public Function ObtenerFuncionarioConvenioPorCodigoIBSDesdeAS400(pintCodIBS As Integer) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
@@ -350,7 +341,7 @@ Public Class clsClienteDO
         Return table2
     End Function
 
-    Public Function ObtenerGestorConvenioPorCodigoIBSDesdeAS400(ByVal pintCodIBS As Integer) As DataTable
+    Public Function ObtenerGestorConvenioPorCodigoIBSDesdeAS400(pintCodIBS As Integer) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
@@ -392,7 +383,7 @@ Public Class clsClienteDO
         Return table2
     End Function
 
-    Public Function ObtenerListaClienteDesdeAS400(ByVal pstrCliente As String, ByVal pstrCodIBS As String, ByVal pstrNumDocumento As String, ByVal pstrCantidadRegistros As String) As DataTable
+    Public Function ObtenerListaClienteDesdeAS400(pstrCliente As String, pstrCodIBS As String, pstrNumDocumento As String, pstrCantidadRegistros As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
@@ -443,7 +434,7 @@ Public Class clsClienteDO
         Return table2
     End Function
 
-    Public Function ObtenerListaClientePorCriterio(ByVal objCliente As clsCliente, ByVal intStartRowIndex As Integer, ByVal intMaxRows As Integer, ByRef intTotalRows As Integer) As DataTable
+    Public Function ObtenerListaClientePorCriterio(objCliente As clsCliente, intStartRowIndex As Integer, intMaxRows As Integer, ByRef intTotalRows As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -481,7 +472,7 @@ Public Class clsClienteDO
         Return table
     End Function
 
-    Public Function ObtenerListaClientesByDiaEnvio(ByVal pintDiaEnvio As Integer) As DataTable
+    Public Function ObtenerListaClientesByDiaEnvio(pintDiaEnvio As Integer) As DataTable
         Dim table As DataTable
         Dim dasql As New DASQL
         Dim command As New SqlCommand
@@ -656,7 +647,7 @@ Public Class clsClienteDO
         Return table2
     End Function
 
-    Public Function ObtenerSaldoContablePorCodigoIBS(ByVal pstrCodIBS As String) As DataTable
+    Public Function ObtenerSaldoContablePorCodigoIBS(pstrCodIBS As String) As DataTable
         Dim table2 As DataTable
         Dim connectionString As String = New DASQL().ConnectionAS400
         Dim connection As Connection = New ConnectionClass
