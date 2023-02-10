@@ -5,20 +5,19 @@ Imports System.Transactions
 
 Public Class BloqueoBL
     ' Fields
-    Private lLog As Log = New Log
+    Private ReadOnly lLog As New Log
 
     ' Methods
-    Public Function ProcesoBloqueo(ByVal pNumeroLote As String, ByVal pUsuario As String) As Integer
+    Public Function ProcesoBloqueo(pNumeroLote As String, pUsuario As String) As Integer
         Dim enumerator As IEnumerator = Nothing
-        Dim lBloqueoDO As BloqueoDO = New BloqueoDO()
-        Dim lResultado As String = ""
         Dim lResult As Integer = 0
         Try
-            Me.lLog.GrabarLog(Log.Level.Info, "ProcesoBloqueo", String.Concat("Inicio del Metodo - Parametros:  pNumeroLote=", pNumeroLote), "", pUsuario)
-            lResultado = lBloqueoDO.ProcesaBloqueoEnIBS(pNumeroLote)
+            lLog.GrabarLog(Log.Level.Info, "ProcesoBloqueo", String.Concat("Inicio del Metodo - Parametros:  pNumeroLote=", pNumeroLote), "", pUsuario)
+            Dim lBloqueoDO As New BloqueoDO()
+            Dim lResultado As String = lBloqueoDO.ProcesaBloqueoEnIBS(pNumeroLote)
             Dim lds As DataSet = lBloqueoDO.ObtieneInformacionBloqueoDeIBS(pNumeroLote)
-            Using oScope As TransactionScope = New TransactionScope(TransactionScopeOption.RequiresNew)
-                Me.lLog.GrabarLog(Log.Level.Info, "ProcesoBloqueo", String.Concat("Inicio de Tx: pNumeroLote=", pNumeroLote), "", pUsuario)
+            Using oScope As New TransactionScope(TransactionScopeOption.RequiresNew)
+                lLog.GrabarLog(Log.Level.Info, "ProcesoBloqueo", String.Concat("Inicio de Tx: pNumeroLote=", pNumeroLote), "", pUsuario)
                 lBloqueoDO.ActualizaLoteBloqueo(pNumeroLote, lResultado)
                 If (lds.Tables.Count > 0) Then
                     Dim ldt As DataTable = lds.Tables(0)
@@ -26,7 +25,7 @@ Public Class BloqueoBL
                         enumerator = ldt.Rows.GetEnumerator()
                         While enumerator.MoveNext()
                             Dim ldr As DataRow = DirectCast(enumerator.Current, DataRow)
-                            lBloqueoDO.ActualizaClienteCuotaBloqueo(pNumeroLote, Conversions.ToString(ldr("EDLNPGR")), Conversions.ToBoolean(Interaction.IIf(Microsoft.VisualBasic.CompilerServices.Operators.CompareString(lResultado.Trim(), "", False) = 0 Or Microsoft.VisualBasic.CompilerServices.Operators.CompareString(lResultado.Trim(), "error", False) = 0, False, Microsoft.VisualBasic.CompilerServices.Operators.CompareString(ldr("EDLFLG1").ToString().Trim(), "", False) = 0)))
+                            lBloqueoDO.ActualizaClienteCuotaBloqueo(pNumeroLote, Conversions.ToString(ldr("EDLNPGR")), Conversions.ToBoolean(IIf(Operators.CompareString(lResultado.Trim(), "", False) = 0 Or Operators.CompareString(lResultado.Trim(), "error", False) = 0, False, Operators.CompareString(ldr("EDLFLG1").ToString().Trim(), "", False) = 0)))
                         End While
                     Finally
                         If (TypeOf enumerator Is IDisposable) Then
@@ -37,11 +36,11 @@ Public Class BloqueoBL
                 lBloqueoDO.ActualizaInformacionBloqueosCuotas(pNumeroLote)
                 oScope.Complete()
             End Using
-            Me.lLog.GrabarLog(Log.Level.Info, "ProcesoBloqueo", String.Concat("Fin del Metodo - Parametros:  pNumeroLote=", pNumeroLote), "", pUsuario)
-        Catch exception As System.Exception
+            lLog.GrabarLog(Log.Level.Info, "ProcesoBloqueo", String.Concat("Fin del Metodo - Parametros:  pNumeroLote=", pNumeroLote), "", pUsuario)
+        Catch exception As Exception
             ProjectData.SetProjectError(exception)
-            Dim ex As System.Exception = exception
-            Me.lLog.GrabarLog(Log.Level.Errores, "ProcesoBloqueo", ex.Message, ex.StackTrace, pUsuario)
+            Dim ex As Exception = exception
+            lLog.GrabarLog(Log.Level.Errores, "ProcesoBloqueo", ex.Message, ex.StackTrace, pUsuario)
             lResult = 1
             ProjectData.ClearProjectError()
         End Try

@@ -1,8 +1,7 @@
 Imports BIFConvenios.DO
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
+
 Public Class ClsFuncionarioBL
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()

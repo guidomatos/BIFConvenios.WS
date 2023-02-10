@@ -2,15 +2,14 @@ Imports BIFConvenios.BE
 Imports BIFConvenios.DO
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
+
 Public Class clsAlertasBL
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
 
     ' Methods
-    Public Function ChangeStatus(ByVal pobjAlertas As clsAlertas) As Integer
+    Public Function ChangeStatus(pobjAlertas As clsAlertas) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsAlertasDO).Create.ChangeStatus(pobjAlertas)
@@ -26,7 +25,7 @@ Public Class clsAlertasBL
         Return num
     End Function
 
-    Public Function Insert(ByVal pobjAlertas As clsAlertas) As Integer
+    Public Function Insert(pobjAlertas As clsAlertas) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsAlertasDO).Create.Insert(pobjAlertas)
@@ -42,7 +41,7 @@ Public Class clsAlertasBL
         Return num
     End Function
 
-    Public Function ObtieneAlertasPorCriterio(ByVal pobjAlertas As clsAlertas) As DataTable
+    Public Function ObtieneAlertasPorCriterio(pobjAlertas As clsAlertas) As DataTable
         Dim table As DataTable
         Try
             table = Singleton(Of clsAlertasDO).Create.ObtieneAlertasPorCriterio(pobjAlertas)
@@ -58,7 +57,7 @@ Public Class clsAlertasBL
         Return table
     End Function
 
-    Public Function Update(ByVal pobjAlertas As clsAlertas) As Integer
+    Public Function Update(pobjAlertas As clsAlertas) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsAlertasDO).Create.Update(pobjAlertas)

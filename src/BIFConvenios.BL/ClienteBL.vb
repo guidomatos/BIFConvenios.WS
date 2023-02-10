@@ -1,11 +1,11 @@
 Imports BIFConvenios.DO
-Imports System
+
 Public Class ClienteBL
     ' Fields
-    Private CodDO As ClienteDO = New ClienteDO
+    Private ReadOnly CodDO As New ClienteDO
 
     ' Methods
-    Public Function ExisteCodigoIBS(ByVal codibs As Integer) As Boolean
-        Return Me.CodDO.ExisteCodigoIBS(codibs)
+    Public Function ExisteCodigoIBS(codibs As Integer) As Boolean
+        Return CodDO.ExisteCodigoIBS(codibs)
     End Function
 End Class

@@ -2,61 +2,55 @@ Imports BIFConvenios.BE
 Imports BIFConvenios.DO
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Collections
-Imports System.Data
 Imports System.Transactions
+
 Public Class clsCuotaBL
     Private objEventoSistema As clsEventoSistema
-
     Private objProceso As clsProceso
-
-    Private objCuotaDO As clsCuotaDO
-
-    Private objCuotaDO2 As CuotaDO
-
-    Private objProcesoBL As clsProcesoBL
-
-    Private objEventoSistemaBL As clsEventoSistemaBL
+    Private ReadOnly objCuotaDO As clsCuotaDO
+    Private ReadOnly objCuotaDO2 As CuotaDO
+    Private ReadOnly objProcesoBL As clsProcesoBL
+    Private ReadOnly objEventoSistemaBL As clsEventoSistemaBL
 
     Public Sub New()
         MyBase.New()
-        Me.objCuotaDO = New clsCuotaDO()
-        Me.objCuotaDO2 = New CuotaDO()
-        Me.objProcesoBL = New clsProcesoBL()
-        Me.objEventoSistemaBL = New clsEventoSistemaBL()
+        objCuotaDO = New clsCuotaDO()
+        objCuotaDO2 = New CuotaDO()
+        objProcesoBL = New clsProcesoBL()
+        objEventoSistemaBL = New clsEventoSistemaBL()
     End Sub
     ' Methods
-    Public Function ImportaPagareDeIBS(ByVal pstrCodigoClienteIBS As String, ByVal pstrAnio As String, ByVal pstrMes As String, ByVal pstrFechaProcesoAS400 As String, ByVal pstrCodigoCliente As String, ByVal pstrUsuario As String) As String
+    Public Function ImportaPagareDeIBS(pstrCodigoClienteIBS As String, pstrAnio As String, pstrMes As String, pstrFechaProcesoAS400 As String, pstrCodigoCliente As String, pstrUsuario As String) As String
         Dim str As String
         Dim enumerator As IEnumerator = Nothing
         Dim enumerator1 As IEnumerator = Nothing
         Dim strCodigoProceso As String = ""
-        Dim dtPagareIBS As DataTable = New DataTable()
-        Dim dtDeudaIBS As DataTable = New DataTable()
+
         Try
-            Dim _clsEventoSistemaBL As clsEventoSistemaBL = Me.objEventoSistemaBL
+            Dim _clsEventoSistemaBL As clsEventoSistemaBL = objEventoSistemaBL
             Dim strArrays() As String = {"Inicio del Metodo - Parametros: pstrCodigoClienteIBS=", pstrCodigoClienteIBS, ", pstrAnio=", pstrAnio, ", pstrMes=", pstrMes, ", pstrCodigoCliente=", pstrCodigoCliente}
-            Me.objEventoSistema = _clsEventoSistemaBL.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ImportaPagareDeIBS", String.Concat(strArrays), "", pstrUsuario)
-            Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
-            'dtPagareIBS = Me.objCuotaDO.ObtenerPagareDeIBS(pstrCodigoClienteIBS, pstrAnio, pstrMes)
-            'dtDeudaIBS = Me.objCuotaDO.ObtenerDeudaDeIBS(pstrCodigoClienteIBS, pstrAnio, pstrMes)
+            objEventoSistema = _clsEventoSistemaBL.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ImportaPagareDeIBS", String.Concat(strArrays), "", pstrUsuario)
+            objEventoSistemaBL.Insertar(objEventoSistema)
+            Dim dtPagareIBS As New DataTable()
+            'dtPagareIBS = objCuotaDO.ObtenerPagareDeIBS(pstrCodigoClienteIBS, pstrAnio, pstrMes)
+            'dtDeudaIBS = objCuotaDO.ObtenerDeudaDeIBS(pstrCodigoClienteIBS, pstrAnio, pstrMes)
             'Add 2022-06-03 Usar misma funcion que web
-            dtPagareIBS = Me.objCuotaDO2.ObtenerPagaresDeIBS("", pstrCodigoClienteIBS, pstrAnio, pstrMes).Tables(0)
-            dtDeudaIBS = Me.objCuotaDO2.ObtenerDeudaDeIBS("", pstrCodigoClienteIBS, pstrAnio, pstrMes).Tables(0)
+            dtPagareIBS = objCuotaDO2.ObtenerPagaresDeIBS("", pstrCodigoClienteIBS, pstrAnio, pstrMes).Tables(0)
+            Dim dtDeudaIBS As New DataTable()
+            dtDeudaIBS = objCuotaDO2.ObtenerDeudaDeIBS("", pstrCodigoClienteIBS, pstrAnio, pstrMes).Tables(0)
             'end Add
 
-            Using oScope As TransactionScope = New TransactionScope(TransactionScopeOption.RequiresNew, TimeSpan.FromMinutes(20))
+            Using oScope As New TransactionScope(TransactionScopeOption.RequiresNew, TimeSpan.FromMinutes(20))
                 Try
-                    Me.objProceso = Me.objProcesoBL.DevolverObjeto(pstrCodigoCliente, pstrAnio, pstrMes, pstrFechaProcesoAS400, pstrUsuario)
-                    strCodigoProceso = Me.objProcesoBL.AdicionarProceso(Me.objProceso)
-                    If (Microsoft.VisualBasic.CompilerServices.Operators.CompareString(strCodigoProceso, "-1", False) <> 0) Then
+                    objProceso = objProcesoBL.DevolverObjeto(pstrCodigoCliente, pstrAnio, pstrMes, pstrFechaProcesoAS400, pstrUsuario)
+                    strCodigoProceso = objProcesoBL.AdicionarProceso(objProceso)
+                    If (Operators.CompareString(strCodigoProceso, "-1", False) <> 0) Then
                         Try
                             enumerator = dtPagareIBS.Rows.GetEnumerator()
                             While enumerator.MoveNext()
                                 Dim current As DataRow = DirectCast(enumerator.Current, DataRow)
                                 current(0) = strCodigoProceso
-                                Me.objCuotaDO.InsertaDLENV(current)
+                                objCuotaDO.InsertaDLENV(current)
                             End While
                         Finally
                             If (TypeOf enumerator Is IDisposable) Then
@@ -68,54 +62,54 @@ Public Class clsCuotaBL
                             While enumerator1.MoveNext()
                                 Dim dr As DataRow = DirectCast(enumerator1.Current, DataRow)
                                 dr(0) = strCodigoProceso
-                                Me.objCuotaDO.InsertarHistoricoDLCCR(dr)
+                                objCuotaDO.InsertarHistoricoDLCCR(dr)
                             End While
                         Finally
                             If (TypeOf enumerator1 Is IDisposable) Then
                                 TryCast(enumerator1, IDisposable).Dispose()
                             End If
                         End Try
-                        Me.objCuotaDO.FinalizaImportacionPagares(strCodigoProceso, pstrUsuario)
-                        Me.objEventoSistema = Me.objEventoSistemaBL.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ImportaPagareDeIBS", String.Concat("Finalizó Importación de Pagares: pCodigo_proceso=", strCodigoProceso), "", pstrUsuario)
-                        Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
+                        objCuotaDO.FinalizaImportacionPagares(strCodigoProceso, pstrUsuario)
+                        objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ImportaPagareDeIBS", String.Concat("Finalizó Importación de Pagares: pCodigo_proceso=", strCodigoProceso), "", pstrUsuario)
+                        objEventoSistemaBL.Insertar(objEventoSistema)
                         oScope.Complete()
                     Else
                         oScope.Dispose()
                         str = strCodigoProceso
                         Return str
                     End If
-                Catch transactionException1 As System.Transactions.TransactionException
+                Catch transactionException1 As TransactionException
                     ProjectData.SetProjectError(transactionException1)
-                    Dim transactionException As System.Transactions.TransactionException = transactionException1
+                    Dim transactionException As TransactionException = transactionException1
                     oScope.Dispose()
-                    Me.objEventoSistema = Me.objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", transactionException.Message, transactionException.StackTrace, pstrUsuario)
-                    Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
+                    objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", transactionException.Message, transactionException.StackTrace, pstrUsuario)
+                    objEventoSistemaBL.Insertar(objEventoSistema)
                     Throw transactionException
-                Catch handledException As Resource.HandledException
+                Catch handledException As HandledException
                     ProjectData.SetProjectError(handledException)
-                    Dim ex2 As Resource.HandledException = handledException
+                    Dim ex2 As HandledException = handledException
                     oScope.Dispose()
-                    Me.objEventoSistema = Me.objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", ex2.ErrorMessageFull, ex2.StackTrace, pstrUsuario)
-                    Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
+                    objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", ex2.ErrorMessageFull, ex2.StackTrace, pstrUsuario)
+                    objEventoSistemaBL.Insertar(objEventoSistema)
                     Throw ex2
-                Catch exception As System.Exception
+                Catch exception As Exception
                     ProjectData.SetProjectError(exception)
-                    Dim ex3 As System.Exception = exception
+                    Dim ex3 As Exception = exception
                     oScope.Dispose()
-                    Me.objEventoSistema = Me.objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", ex3.Message, ex3.StackTrace, pstrUsuario)
-                    Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
+                    objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", ex3.Message, ex3.StackTrace, pstrUsuario)
+                    objEventoSistemaBL.Insertar(objEventoSistema)
                     Throw ex3
                 End Try
             End Using
-            Dim _clsEventoSistemaBL1 As clsEventoSistemaBL = Me.objEventoSistemaBL
+            Dim _clsEventoSistemaBL1 As clsEventoSistemaBL = objEventoSistemaBL
             strArrays = New String() {"Fin del Metodo - Parametros: pstrCodigoClienteIBS=", pstrCodigoClienteIBS, ", pstrAnio=", pstrAnio, ", pstrMes=", pstrMes, ", pstrCodigoCliente=", pstrCodigoCliente}
-            Me.objEventoSistema = _clsEventoSistemaBL1.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ImportaPagareDeIBS", String.Concat(strArrays), "", pstrUsuario)
-            Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
-        Catch exception1 As System.Exception
+            objEventoSistema = _clsEventoSistemaBL1.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ImportaPagareDeIBS", String.Concat(strArrays), "", pstrUsuario)
+            objEventoSistemaBL.Insertar(objEventoSistema)
+        Catch exception1 As Exception
             ProjectData.SetProjectError(exception1)
-            Dim ex1 As System.Exception = exception1
-            Me.objEventoSistema = Me.objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", ex1.Message, ex1.StackTrace, pstrUsuario)
-            Me.objEventoSistemaBL.Insertar(Me.objEventoSistema)
+            Dim ex1 As Exception = exception1
+            objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", Conversions.ToString(3), "ImportaPagareDeIBS", ex1.Message, ex1.StackTrace, pstrUsuario)
+            objEventoSistemaBL.Insertar(objEventoSistema)
             Throw ex1
         End Try
         str = strCodigoProceso

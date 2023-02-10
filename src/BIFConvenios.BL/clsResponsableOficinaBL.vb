@@ -2,14 +2,13 @@ Imports BIFConvenios.BE
 Imports BIFConvenios.DO
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
+
 Public Class clsResponsableOficinaBL
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function ChangeStatus(ByVal pobjResponsableOficina As clsReponsableOficina) As Integer
+    Public Function ChangeStatus(pobjResponsableOficina As clsReponsableOficina) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsResponsableOficinaDO).Create.ChangeStatus(pobjResponsableOficina)
@@ -25,7 +24,7 @@ Public Class clsResponsableOficinaBL
         Return num
     End Function
 
-    Public Function Insert(ByVal pobjResponsableOficina As clsReponsableOficina) As Integer
+    Public Function Insert(pobjResponsableOficina As clsReponsableOficina) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsResponsableOficinaDO).Create.Insert(pobjResponsableOficina)
@@ -57,7 +56,7 @@ Public Class clsResponsableOficinaBL
         Return table
     End Function
 
-    Public Function ObtenerOficinaDesdeAS400PorCriterio(ByVal pintTipo As Integer, ByVal pstrValor As String) As DataTable
+    Public Function ObtenerOficinaDesdeAS400PorCriterio(pintTipo As Integer, pstrValor As String) As DataTable
         Dim table As DataTable
         Try
             table = Singleton(Of clsResponsableOficinaDO).Create.ObtenerOficinaDesdeAS400PorCriterio(pintTipo, pstrValor)
@@ -73,7 +72,7 @@ Public Class clsResponsableOficinaBL
         Return table
     End Function
 
-    Public Function ObtenerResponsableOficinaPorCriterio(ByVal pobjResponsableOficina As clsReponsableOficina) As DataTable
+    Public Function ObtenerResponsableOficinaPorCriterio(pobjResponsableOficina As clsReponsableOficina) As DataTable
         Dim table As DataTable
         Try
             table = Singleton(Of clsResponsableOficinaDO).Create.ObtenerResponsableOficinaPorCriterio(pobjResponsableOficina)
@@ -89,7 +88,7 @@ Public Class clsResponsableOficinaBL
         Return table
     End Function
 
-    Public Function Update(ByVal pobjResponsableOficina As clsReponsableOficina) As Integer
+    Public Function Update(pobjResponsableOficina As clsReponsableOficina) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsResponsableOficinaDO).Create.Update(pobjResponsableOficina)

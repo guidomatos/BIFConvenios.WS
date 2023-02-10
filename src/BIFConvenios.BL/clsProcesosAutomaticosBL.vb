@@ -2,14 +2,13 @@ Imports BIFConvenios.BE
 Imports BIFConvenios.DO
 Imports Microsoft.VisualBasic.CompilerServices
 Imports Resource
-Imports System
-Imports System.Data
+
 Public Class clsProcesosAutomaticosBL
     <DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
     End Sub
     ' Methods
-    Public Function Insert(ByVal pobjProcesosAutomaticos As clsProcesosAutomaticos) As Integer
+    Public Function Insert(pobjProcesosAutomaticos As clsProcesosAutomaticos) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsProcesosAutomaticosDO).Create.Insert(pobjProcesosAutomaticos)
@@ -25,7 +24,7 @@ Public Class clsProcesosAutomaticosBL
         Return num
     End Function
 
-    Public Function Seleccionar(ByVal pobjProcesosAutomaticos As clsProcesosAutomaticos) As DataTable
+    Public Function Seleccionar(pobjProcesosAutomaticos As clsProcesosAutomaticos) As DataTable
         Dim table As DataTable
         Try
             table = Singleton(Of clsProcesosAutomaticosDO).Create.Seleccionar(pobjProcesosAutomaticos)
@@ -41,7 +40,7 @@ Public Class clsProcesosAutomaticosBL
         Return table
     End Function
 
-    Public Function Update(ByVal pobjProcesosAutomaticos As clsProcesosAutomaticos) As Integer
+    Public Function Update(pobjProcesosAutomaticos As clsProcesosAutomaticos) As Integer
         Dim num As Integer
         Try
             num = Singleton(Of clsProcesosAutomaticosDO).Create.Update(pobjProcesosAutomaticos)
