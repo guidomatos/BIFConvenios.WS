@@ -2,25 +2,15 @@ Imports Microsoft.VisualBasic.CompilerServices
 
 Public Class clsAlertasClientes
     Private _iAlertaClienteId As Integer
-
     Private _iAlertaId As Integer
-
     Private _iClienteId As Integer
-
     Private _iDiasAntes As Integer
-
     Private _iDiasDespues As Integer
-
     Private _iAdjunto As Integer
-
     Private _iEstado As Integer
-
     Private _vUsuarioCreacion As String
-
     Private _dFechaCreacion As DateTime
-
     Private _vUsuarioModificacion As String
-
     Private _dFechaModificacion As DateTime
     Public Property dFechaCreacion() As DateTime
         Get

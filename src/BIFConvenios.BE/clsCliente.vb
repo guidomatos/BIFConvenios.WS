@@ -36,8 +36,6 @@ Public Class clsCliente
     Private _UsuarioModificacion As String
     Private _FechaModificacion As DateTime
 
-
-
     ' Properties
     Public Property CodigoCliente() As Integer
         Get
@@ -329,7 +327,6 @@ Public Class clsCliente
             Return _FechaModificacion
         End Get
     End Property
-
 
     Public Sub New()
         MyBase.New()

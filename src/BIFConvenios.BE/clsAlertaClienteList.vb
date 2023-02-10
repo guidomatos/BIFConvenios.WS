@@ -17,7 +17,7 @@ Public Class clsAlertaClienteList
     Public Sub New(Entidad As DataTable)
         Dim flag As Boolean = (IsDBNull(Entidad) Or (Entidad.Rows.Count = 0))
         If Not flag Then
-            Dim enumerator As IEnumerator
+            Dim enumerator As IEnumerator = Nothing
             Try
                 enumerator = Entidad.Rows.GetEnumerator
                 Do While True
@@ -29,7 +29,7 @@ Public Class clsAlertaClienteList
                     Elements.Add(New clsAlertasClientes(current))
                 Loop
             Finally
-                If Not Object.ReferenceEquals(TryCast(enumerator, IDisposable), Nothing) Then
+                If TryCast(enumerator, IDisposable) IsNot Nothing Then
                     TryCast(enumerator, IDisposable).Dispose()
                 End If
             End Try

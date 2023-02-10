@@ -32,7 +32,7 @@ Public Class clsClienteList
                     Elements.Add(New clsCliente(current))
                 Loop
             Finally
-                If Not ReferenceEquals(TryCast(enumerator, IDisposable), Nothing) Then
+                If TryCast(enumerator, IDisposable) IsNot Nothing Then
                     TryCast(enumerator, IDisposable).Dispose()
                 End If
             End Try
