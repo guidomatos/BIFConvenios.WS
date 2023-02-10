@@ -2,14 +2,13 @@
 Imports System.Text
 
 Public Class ArchivoCSV
-    Public Sub ExportaCSV(ByRef pData As DataSet, ByVal ruta As String, ByVal strFile As String)
+    Public Sub ExportaCSV(ByRef pData As DataSet, ruta As String, strFile As String)
         Dim ldr As DataRow
         Dim lNroColumnas As Integer
 
         Dim sb As New StringBuilder()   ' para contener el archivo CSV
         Dim j As Integer
         Dim k As Integer
-        Dim replVal As String = String.Empty
 
         WS.Utils.RemoveFiles(ruta, New TimeSpan(0, 0, 60, 0, 0))
         'Crear el encabezado y la hoja...
@@ -29,7 +28,7 @@ Public Class ArchivoCSV
                 If ldr(k).ToString() = Nothing Then
                     sb.Append("""""" + ldr(k).ToString() + " " + ",")
                 Else
-                    replVal = ldr(k).ToString().Replace("""", quoter)
+                    Dim replVal As String = ldr(k).ToString().Replace("""", quoter)
                     replVal += " ,"
                     sb.Append(replVal)
                 End If
@@ -41,42 +40,38 @@ Public Class ArchivoCSV
 
         Dim fi As New FileInfo(ruta + strFile)
         Dim sWriter As FileStream = fi.Open(FileMode.Create, FileAccess.Write, FileShare.ReadWrite)
-        sWriter.Write(System.Text.Encoding.Default.GetBytes(strFileContent), 0, strFileContent.Length)
+        sWriter.Write(Encoding.Default.GetBytes(strFileContent), 0, strFileContent.Length)
         sWriter.Flush()
         sWriter.Close()
-        fi = Nothing
-        sWriter = Nothing
     End Sub
 
-    Public Function ImportaCSV(ByVal pRutaArchivo As String) As DataTable
-        Dim ldt As DataTable = New DataTable("Result")
-        Dim ldr As DataRow
-        Dim ldata As String = ""
+    Public Function ImportaCSV(pRutaArchivo As String) As DataTable
+        Dim ldt As New DataTable("Result")
         Dim ldataSplit As String()
         Dim lCol As Integer
         Dim lNroCol As Integer = 0
 
-        Dim lStreamReader As IO.StreamReader
-        lStreamReader = New IO.StreamReader(pRutaArchivo)
+        Dim lStreamReader As StreamReader
+        lStreamReader = New StreamReader(pRutaArchivo)
         Try
 
             'Aqui obtenemos los nombres de las columnas
-            ldata = lStreamReader.ReadLine
+            Dim ldata As String = lStreamReader.ReadLine
             ldataSplit = ldata.Split(",")
 
             'Aqui añadimos las columnas
             For lCol = 0 To ldataSplit.Length() - 1
                 If ldataSplit(lCol).Trim <> "" Then
                     ldt.Columns.Add(New DataColumn(ldataSplit(lCol)))
-                    lNroCol = lNroCol + 1
+                    lNroCol += 1
                 End If
             Next
 
             'Aqui leemos la primera linea
             ldata = lStreamReader.ReadLine
-            Do While (Not ldata Is Nothing)
+            Do While (ldata IsNot Nothing)
                 ldataSplit = ldata.Split(",")
-                ldr = ldt.NewRow
+                Dim ldr As DataRow = ldt.NewRow
                 For lCol = 0 To lNroCol - 1
                     ldr.Item(lCol) = ldataSplit(lCol).ToString
                 Next

@@ -5,15 +5,13 @@ Imports System.Configuration
 
 Public Class ArchivoXLS
 
-    Public Sub ExportaXLS(ByVal myDS As DataSet, ByVal ruta As String, ByVal strFile As String)
+    Public Sub ExportaXLS(myDS As DataSet, ruta As String, strFile As String)
         'BIFUtils.xlsRes
         'Dim m_objRes As System.Resources.ResourceManager = New System.Resources.ResourceManager("BIFUtils.resx", Me.GetType.Assembly)
-        Dim sb As StringBuilder = New StringBuilder() '   para contener el archivo XLS
+        Dim sb As New StringBuilder() '   para contener el archivo XLS
         Dim j As Integer
         Dim k As Integer
         Dim l As Integer
-
-        Dim replVal As String = ""
         WS.Utils.RemoveFiles(ruta, New TimeSpan(0, 0, 60, 0, 0))
         'Crear el encabezado y la hoja...
         'String quoter  = "\"";
@@ -207,7 +205,7 @@ Public Class ArchivoXLS
                     sb.Append(myDS.Tables(0).Rows(l)(k).ToString())
                 Else
                     '//replVal= myReader.GetValue(k).ToString();
-                    replVal = myDS.Tables(0).Rows(l)(k).ToString()
+                    Dim replVal As String = myDS.Tables(0).Rows(l)(k).ToString()
                     sb.Append(replVal)
                 End If
                 'sb.Append(m_objRes.GetString("EndNormalTD"))
@@ -229,18 +227,15 @@ Public Class ArchivoXLS
         '//myReader = null;
 
         Dim strFileContent As String = sb.ToString()
-        Dim fi As FileInfo = New FileInfo(ruta + strFile) 'System.Web.HttpContext.Current.Server.MapPath(ruta + strFile))
+        Dim fi As New FileInfo(ruta + strFile) 'System.Web.HttpContext.Current.Server.MapPath(ruta + strFile))
         Dim sWriter As FileStream = fi.Open(FileMode.Create, FileAccess.Write, FileShare.ReadWrite)
-        sWriter.Write(System.Text.Encoding.Default.GetBytes(strFileContent), 0, strFileContent.Length)
+        sWriter.Write(Encoding.Default.GetBytes(strFileContent), 0, strFileContent.Length)
         sWriter.Flush()
         sWriter.Close()
-        fi = Nothing
-        sWriter = Nothing
     End Sub
 
-    'ADD NCA 20/06/2014
     'REQ: EA2013-273 CREACION ARCHIVOS EXCEL PARA DESCUENTOS / IMPORTACION
-    Public Function ImportaXLS(ByVal archivo As String) As DataTable
+    Public Function ImportaXLS(archivo As String) As DataTable
         Dim cs As String = TraerCadenaConexion(archivo)
         Dim oConn As New OleDbConnection
         Dim oCmd As New OleDbCommand
@@ -261,7 +256,8 @@ Public Class ArchivoXLS
             oConn.Close()
         End Try
 
-        Dim i As Integer = 0
+        Dim i As Integer
+
         For i = 0 To dsExcel.Tables(0).Columns.Count - 1
             dsExcel.Tables(0).Columns(i).ColumnName = dsExcel.Tables(0).Rows(0).Item(i).ToString
         Next
@@ -269,14 +265,12 @@ Public Class ArchivoXLS
         Return dsExcel.Tables(0)
     End Function
 
-    Public Function FiltraSoloRegistrosXLS(ByVal dtExcel As DataTable) As DataTable
+    Public Function FiltraSoloRegistrosXLS(dtExcel As DataTable) As DataTable
         Dim _dtResult As New DataTable("Resultado")
-        Dim _drFila As DataRow = Nothing
-        Dim intColumns As Integer = 0
 
         Try
             '1. Conseguiendo numero de columnas
-            intColumns = dtExcel.Columns.Count
+            Dim intColumns As Integer = dtExcel.Columns.Count
 
             '2. Inicializando Datatable de Retorno
             _dtResult.Columns.Add("CodigoBanco", GetType(String))
@@ -291,6 +285,7 @@ Public Class ArchivoXLS
             _dtResult.Columns.Add("SituacionLaboral", GetType(String))
             _dtResult.Columns.Add("MontoDescuento", GetType(String))
 
+            Dim _drFila As DataRow
             '3. Recorriendo Datatable Excel
             For Each _drFila In dtExcel.Rows
                 Dim _dr As DataRow = _dtResult.NewRow()
@@ -303,9 +298,7 @@ Public Class ArchivoXLS
                     End If
 
                     If _drFila("CodigoTrabajador").ToString().Trim <> String.Empty Then
-
                         strCodigoModular = _drFila("CodigoTrabajador").ToString().Trim
-
                     End If
 
                     Dim strAnio As String = _drFila("Anio").ToString().Trim
@@ -338,14 +331,12 @@ Public Class ArchivoXLS
         End Try
     End Function
 
-    Public Function FiltraSoloRegistrosXLS(ByVal dtExcel As DataTable, ByVal strNombreCampos() As String) As DataTable
+    Public Function FiltraSoloRegistrosXLS(dtExcel As DataTable, strNombreCampos() As String) As DataTable
         Dim dtRet As New DataTable("Resultado")
-        Dim drFila As DataRow = Nothing
-        Dim intColumnas As Int16 = 0
 
         Try
             '1. Conseguiendo numero de columnas
-            intColumnas = dtExcel.Columns.Count
+            Dim intColumnas As Short = dtExcel.Columns.Count
 
             '2. Inicializando Datatable de Retorno
             dtRet.Columns.Add("CodigoBanco", GetType(String))
@@ -360,6 +351,7 @@ Public Class ArchivoXLS
             dtRet.Columns.Add("SituacionLaboral", GetType(String))
             dtRet.Columns.Add("MontoDescuento", GetType(String))
 
+            Dim drFila As DataRow = Nothing
             '3. Recorriendo Datatable Excel
             For Each drFila In dtExcel.Rows
 
@@ -430,7 +422,7 @@ Public Class ArchivoXLS
 
     End Function
 
-    Private Function TraerCadenaConexion(ByVal archivo As String) As String
+    Private Function TraerCadenaConexion(archivo As String) As String
         Dim cadena As String
         'cadena = String.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=Excel 12.0", archivo)
         'cadena = String.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;IMEX=1;HDR=Yes;TypeGuessRows=0;ImportMixedTypes=Text'", archivo)

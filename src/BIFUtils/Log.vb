@@ -3,7 +3,7 @@ Imports Microsoft.VisualBasic.ApplicationServices
 
 Public Class Log
 
-    Dim strWSCadenaConexion As String = BIFUtils.WS.Utils.CadenaConexion("ConnectionString")
+    Dim strWSCadenaConexion As String = WS.Utils.CadenaConexion("ConnectionString")
     Public Enum Level
         Debug = 0
         Info = 1
@@ -29,8 +29,9 @@ Public Class Log
             Dim lstrsql As String = "INSERT INTO EventoSistema (Fecha,Hilo,Nivel,Accion,Mensaje,Excepcion, Usuario)" _
                                     & " VALUES ( GETDATE(), @Hilo, @Nivel, @Accion, @Mensaje, @Excepcion, @Usuario)"
 
-            lcmd = New SqlCommand(lstrsql, lconn)
-            lcmd.CommandType = CommandType.Text
+            lcmd = New SqlCommand(lstrsql, lconn) With {
+                .CommandType = CommandType.Text
+            }
 
             AgregarParametro(lcmd, "@Hilo", ParameterDirection.Input, DbType.String, "BIFConvenios")
             AgregarParametro(lcmd, "@Nivel", ParameterDirection.Input, DbType.String, pNivel.ToString)

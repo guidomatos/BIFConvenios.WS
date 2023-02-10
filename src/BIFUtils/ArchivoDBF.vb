@@ -4,16 +4,14 @@ Imports System.IO
 Imports System.Runtime.InteropServices
 
 Public Class ArchivoDBF
-    Dim lRutaGeneracionArchivos As String = ConfigurationManager.AppSettings("RutaGeneracionArchivos").Trim()
-    Dim lRutaDBFBase As String = ConfigurationManager.AppSettings("RutaDBFBase").Trim()
+    ReadOnly lRutaGeneracionArchivos As String = ConfigurationManager.AppSettings("RutaGeneracionArchivos").Trim()
+    ReadOnly lRutaDBFBase As String = ConfigurationManager.AppSettings("RutaDBFBase").Trim()
 
 #Region " Exportar DBF "
 
-    Public Sub ExportaDBFUNICA(ByVal pData As DataSet, ByVal pNombreArchivoProceso As String)
-        'ELLANOS-1504-2013 INICIO
+    Public Sub ExportaDBFUNICA(pData As DataSet, pNombreArchivoProceso As String)
         IIf(pNombreArchivoProceso.Substring(0, 1) = "-", pNombreArchivoProceso.Substring(1), pNombreArchivoProceso)
         'msgbbox("ok", pNombreArchivoProceso)
-        'ELLANOS-1504-2013 FIN
         Dim ldr As DataRow
 
         'Eliminamos el archivo original
@@ -34,15 +32,13 @@ Public Class ArchivoDBF
 
             command.ExecuteNonQuery()
             command.Dispose()
-
         Next
 
         connection.Close()
         connection.Dispose()
-        connection = Nothing
     End Sub
 
-    Public Sub ExportaDBFSIGA(ByRef pData As DataSet, ByVal pNombreArchivoProceso As String)
+    Public Sub ExportaDBFSIGA(ByRef pData As DataSet, pNombreArchivoProceso As String)
         Dim ldr As DataRow
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
         File.Delete(lRutaGeneracionArchivos + pNombreArchivoProceso)
@@ -76,7 +72,6 @@ Public Class ArchivoDBF
 
         connection.Close()
         connection.Dispose()
-        connection = Nothing
     End Sub
     ''' <summary>
     ''' Exporta informacion en formato DBF para la UNMSM.
@@ -85,7 +80,7 @@ Public Class ArchivoDBF
     ''' <param name="pNombreArchivoProceso">Nombre del archivo a generar.</param>
     ''' <remarks>ADD 02/09/2013 NCA: Generar archivo de cobranzas en formato DBF para la UNMSM
     '''          MOD 05/09/2013 NCA: Generar dos formatos de archivos para la UNMSM</remarks>
-    Public Sub ExportaDBFUNMSM(ByRef pData As DataSet, ByVal pNombreArchivoProceso As String, ByVal pSituacionTrabajador As String)
+    Public Sub ExportaDBFUNMSM(ByRef pData As DataSet, pNombreArchivoProceso As String, pSituacionTrabajador As String)
         Dim ldr As DataRow
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
         File.Delete(lRutaGeneracionArchivos + pNombreArchivoProceso)
@@ -116,10 +111,9 @@ Public Class ArchivoDBF
 
         connection.Close()
         connection.Dispose()
-        connection = Nothing
     End Sub
 
-    Public Sub ExportaDBFJAEN(ByVal pData As DataSet, ByVal pNombreArchivoProceso As String)
+    Public Sub ExportaDBFJAEN(pData As DataSet, pNombreArchivoProceso As String)
         Dim ldr As DataRow
 
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
@@ -156,13 +150,12 @@ Public Class ArchivoDBF
         connection.Close()
         'connection.ReleaseObjectPool()
         connection.Dispose()
-        connection = Nothing
 
         File.Move(lRutaGeneracionArchivos + pNombreArchivoProceso.Split(".")(0) + ".DBF", lRutaGeneracionArchivos + pNombreArchivoProceso)
 
     End Sub
 
-    Public Sub ExportaDBFSanIgnacio(ByVal pData As DataSet, ByVal pNombreArchivoProceso As String)
+    Public Sub ExportaDBFSanIgnacio(pData As DataSet, pNombreArchivoProceso As String)
         Dim ldr As DataRow
 
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
@@ -199,13 +192,12 @@ Public Class ArchivoDBF
         connection.Close()
         'connection.ReleaseObjectPool()
         connection.Dispose()
-        connection = Nothing
 
         File.Move(lRutaGeneracionArchivos + pNombreArchivoProceso.Split(".")(0) + ".DBF", lRutaGeneracionArchivos + pNombreArchivoProceso)
 
     End Sub
 
-    Public Sub ExportaDBFChulucanas(ByVal pData As DataSet, ByVal pNombreArchivoProceso As String)
+    Public Sub ExportaDBFChulucanas(pData As DataSet, pNombreArchivoProceso As String)
         Dim ldr As DataRow
 
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
@@ -242,13 +234,12 @@ Public Class ArchivoDBF
         connection.Close()
         'connection.ReleaseObjectPool()
         connection.Dispose()
-        connection = Nothing
 
         File.Move(lRutaGeneracionArchivos + pNombreArchivoProceso.Split(".")(0) + ".DBF", lRutaGeneracionArchivos + pNombreArchivoProceso)
 
     End Sub
 
-    Public Sub ExportaDBFAMAZONAS(ByVal pData As DataSet, ByVal pNombreArchivoProceso As String)
+    Public Sub ExportaDBFAMAZONAS(pData As DataSet, pNombreArchivoProceso As String)
         Dim ldr As DataRow
 
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
@@ -285,13 +276,12 @@ Public Class ArchivoDBF
         connection.Close()
         'connection.ReleaseObjectPool()
         connection.Dispose()
-        connection = Nothing
 
         File.Move(lRutaGeneracionArchivos + pNombreArchivoProceso.Split(".")(0) + ".DBF", lRutaGeneracionArchivos + pNombreArchivoProceso)
 
     End Sub
 
-    Public Sub ExportaDBFUNFV(ByVal pData As DataSet, ByVal pNombreArchivoProceso As String)
+    Public Sub ExportaDBFUNFV(pData As DataSet, pNombreArchivoProceso As String)
         Dim ldr As DataRow
 
         'TODO: REVISAR SI pNombreArchivoProceso va a incluir la extension DBF
@@ -320,7 +310,6 @@ Public Class ArchivoDBF
         connection.Close()
         'connection.ReleaseObjectPool()
         connection.Dispose()
-        connection = Nothing
     End Sub
 
 #End Region
@@ -331,22 +320,21 @@ Public Class ArchivoDBF
     '// packed so we can read straight from disk into the structure to populate it
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Ansi, Pack:=1)>
     Private Structure DBFHeader
-
         Public version As Byte
         Public updateYear As Byte
         Public updateMonth As Byte
         Public updateDay As Byte
-        Public numRecords As Int32
-        Public headerLen As Int16
-        Public recordLen As Int16
-        Public reserved1 As Int16
+        Public numRecords As Integer
+        Public headerLen As Short
+        Public recordLen As Short
+        Public reserved1 As Short
         Public incompleteTrans As Byte
         Public encryptionFlag As Byte
-        Public reserved2 As Int32
-        Public reserved3 As Int64
+        Public reserved2 As Integer
+        Public reserved3 As Long
         Public MDX As Byte
         Public language As Byte
-        Public reserved4 As Int16
+        Public reserved4 As Short
     End Structure
 
     '// This is the field descriptor structure. There will be one of these for each column in the table.
@@ -355,12 +343,12 @@ Public Class ArchivoDBF
         <MarshalAs(UnmanagedType.ByValTStr, SizeConst:=11)>
         Public fieldName As String
         Public fieldType As Char
-        Public address As Int32
+        Public address As Integer
         Public fieldLen As Byte
         Public count As Byte
-        Public reserved1 As Int16
+        Public reserved1 As Short
         Public workArea As Byte
-        Public reserved2 As Int16
+        Public reserved2 As Short
         Public flag As Byte
         <MarshalAs(UnmanagedType.ByValArray, SizeConst:=7)>
         Public reserved3 As Byte()
@@ -368,9 +356,9 @@ Public Class ArchivoDBF
     End Structure
 
     '// Read an entire standard DBF file into a DataTable
-    Public Function LeerDBF(ByVal dbfFile As String) As DataTable
+    Public Function LeerDBF(dbfFile As String) As DataTable
 
-        Dim dt As DataTable = New DataTable()
+        Dim dt As New DataTable()
         '// If there isn't even a file, just return an empty DataTable
         If ((False = File.Exists(dbfFile))) Then
             Return dt
@@ -385,11 +373,11 @@ Public Class ArchivoDBF
 
             '// Marshall the header into a DBFHeader structure
             Dim handle As GCHandle = GCHandle.Alloc(buffer, GCHandleType.Pinned)
-            Dim header As DBFHeader = CType(Marshal.PtrToStructure(handle.AddrOfPinnedObject(), GetType(DBFHeader)), DBFHeader)
+            Dim header As DBFHeader = Marshal.PtrToStructure(handle.AddrOfPinnedObject(), GetType(DBFHeader))
             handle.Free()
 
             '// Read in all the field descriptors. Per the spec, 13 (0D) marks the end of the field descriptors
-            Dim fields As ArrayList = New ArrayList()
+            Dim fields As New ArrayList()
             While ((13 <> br.PeekChar()))
                 buffer = br.ReadBytes(Marshal.SizeOf(GetType(FieldDescriptor)))
                 handle = GCHandle.Alloc(buffer, GCHandleType.Pinned)
@@ -407,7 +395,7 @@ Public Class ArchivoDBF
                         If (field.count > 0) Then
                             col = New DataColumn(field.fieldName, GetType(Double))
                         Else
-                            col = New DataColumn(field.fieldName, GetType(Int32))
+                            col = New DataColumn(field.fieldName, GetType(Integer))
                         End If
                     Case "C"
                         col = New DataColumn(field.fieldName, GetType(String))
@@ -439,7 +427,7 @@ Public Class ArchivoDBF
                 '// First we'll read the entire record into a buffer and then read each field from the buffer
                 '// This helps account for any extra space at the end of each record and probably performs better
                 buffer = br.ReadBytes(header.recordLen)                             '//Leemos como Bytes[]
-                Dim enc As System.Text.Encoding = System.Text.Encoding.ASCII        '//Definimos un Encoding Ascii
+                Dim enc As Text.Encoding = Text.Encoding.ASCII                      '//Definimos un Encoding Ascii
                 bufferstr = enc.GetString(buffer)                                   '//Convertimos a String el Tipo Bytes[]
 
                 PosiIni = 0   '//Inicializamos el Indicador de Posicion
@@ -451,33 +439,31 @@ Public Class ArchivoDBF
                         Case "N" '// Number
                             '// We'll use a try/catch here in case it isn't a valid number
                             number = bufferstr.Substring(PosiIni, field.fieldLen)
-                            PosiIni = PosiIni + field.fieldLen
+                            PosiIni += field.fieldLen
                             Try
                                 row(field.fieldName) = number
                             Catch
                                 row(field.fieldName) = 0
                             End Try
-
                         Case "C" '// String
                             data = bufferstr.Substring(PosiIni, field.fieldLen)
                             data = Replace(data, vbTab, "")
                             row(field.fieldName) = data
-                            PosiIni = PosiIni + field.fieldLen
-
+                            PosiIni += field.fieldLen
                         Case "D" '// Date (YYYYMMDD)
                             '//year = Encoding.ASCII.GetString(recReader.ReadBytes(4));
                             '//month = Encoding.ASCII.GetString(recReader.ReadBytes(2));
                             '//day = Encoding.ASCII.GetString(recReader.ReadBytes(2));
                             year = bufferstr.Substring(PosiIni, 4)
-                            PosiIni = PosiIni + 4
+                            PosiIni += 4
                             month = bufferstr.Substring(PosiIni, 2)
-                            PosiIni = PosiIni + 2
+                            PosiIni += 2
                             day = bufferstr.Substring(PosiIni, 2)
-                            PosiIni = PosiIni + 2
-                            row(field.fieldName) = System.DBNull.Value
+                            PosiIni += 2
+                            row(field.fieldName) = DBNull.Value
                             Try
-                                If ((Int32.Parse(year) > 1900)) Then
-                                    row(field.fieldName) = New DateTime(Int32.Parse(year), Int32.Parse(month), Int32.Parse(day))
+                                If ((Integer.Parse(year) > 1900)) Then
+                                    row(field.fieldName) = New DateTime(Integer.Parse(year), Integer.Parse(month), Integer.Parse(day))
                                 End If
                             Catch
                             End Try
@@ -501,7 +487,7 @@ Public Class ArchivoDBF
         Catch Ex As Exception
             Throw Ex
         Finally
-            If Not br Is Nothing Then
+            If br IsNot Nothing Then
                 br.Close()
             End If
         End Try
