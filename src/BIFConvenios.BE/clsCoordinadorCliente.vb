@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsCoordinadorCliente
     ' Fields
     Private _CodigoCliente As Integer
@@ -19,6 +20,7 @@ Public Class clsCoordinadorCliente
     Private _Estado As Boolean
 
     ' Properties
+    <DataMember()>
     Public Property CodigoCliente() As Integer
         Get
             Return _CodigoCliente
@@ -28,6 +30,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoCoordinador() As Integer
         Get
             Return _CodigoCoordinador
@@ -37,6 +40,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property NombreCoordinador() As String
         Get
             Return _NombreCoordinador
@@ -46,6 +50,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property EmailCoordinador() As String
         Get
             Return _EmailCoordinador
@@ -55,6 +60,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Telefono() As String
         Get
             Return _Telefono
@@ -64,6 +70,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Anexo() As String
         Get
             Return _Anexo
@@ -73,6 +80,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Celular() As String
         Get
             Return _Celular
@@ -82,6 +90,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Cargo() As String
         Get
             Return _Cargo
@@ -91,6 +100,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property TipoPlanilla() As String
         Get
             Return _TipoPlanilla
@@ -100,6 +110,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property EstadoCoordinador() As Integer
         Get
             Return _EstadoCoordinador
@@ -109,6 +120,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property UsuarioCreacion() As String
         Get
             Return _UsuarioCreacion
@@ -118,6 +130,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaCreacion() As DateTime
         Get
             Return _FechaCreacion
@@ -127,6 +140,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property UsuarioModificacion() As String
         Get
             Return _UsuarioModificacion
@@ -136,6 +150,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaModificacion() As DateTime
         Get
             Return _FechaModificacion
@@ -145,6 +160,7 @@ Public Class clsCoordinadorCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Estado() As Boolean
         Get
             Return _Estado

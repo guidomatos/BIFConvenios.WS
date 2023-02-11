@@ -1,8 +1,10 @@
+<DataContract()>
 Public Class clsSystemParametersList
     ' Fields
     Private _objElements As List(Of clsSystemParameters)
 
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsSystemParameters)
         Get
             Return _objElements

@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsSystemParameters
     ' Fields
     Private _iGrupoId As Integer
@@ -17,6 +18,7 @@ Public Class clsSystemParameters
     Private _dFechaModificacion As DateTime
 
     ' Properties
+    <DataMember()>
     Public Property iGrupoId() As Integer
         Get
             Return _iGrupoId
@@ -26,6 +28,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property iParametroId() As Integer
         Get
             Return _iParametroId
@@ -35,6 +38,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property vDescripcion() As String
         Get
             Return _vDescripcion
@@ -44,6 +48,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property vValor() As String
         Get
             Return _vValor
@@ -53,6 +58,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property iOrden() As Integer
         Get
             Return _iOrden
@@ -62,6 +68,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property iVisible() As Integer
         Get
             Return _iVisible
@@ -71,6 +78,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaInicio() As DateTime
         Get
             Return _dFechaInicio
@@ -80,6 +88,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaFin() As DateTime
         Get
             Return _dFechaFin
@@ -89,6 +98,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property iEstado() As Integer
         Get
             Return _iEstado
@@ -98,6 +108,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioCreacion() As String
         Get
             Return _vUsuarioCreacion
@@ -107,6 +118,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaCreacion() As DateTime
         Get
             Return _dFechaCreacion
@@ -116,6 +128,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioModificacion() As String
         Get
             Return _vUsuarioModificacion
@@ -125,6 +138,7 @@ Public Class clsSystemParameters
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaModificacion() As DateTime
         Get
             Return _dFechaModificacion

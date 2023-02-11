@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsProceso
     ' Fields
     Private _CodigoProceso As String
@@ -20,6 +21,7 @@ Public Class clsProceso
     Private _FechaPostConciliacion As DateTime
 
     ' Properties
+    <DataMember()>
     Public Property CodigoProceso() As String
         Get
             Return _CodigoProceso
@@ -29,6 +31,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property Estado() As String
         Get
             Return _Estado
@@ -38,6 +41,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property AnioPeriodo() As String
         Get
             Return _AnioPeriodo
@@ -47,6 +51,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property MesPeriodo() As String
         Get
             Return _MesPeriodo
@@ -56,6 +61,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaProcesoAS400() As String
         Get
             Return _FechaProcesoAS400
@@ -65,6 +71,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoCliente() As Integer
         Get
             Return _CodigoCliente
@@ -74,6 +81,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaCargaAS400() As DateTime
         Get
             Return _FechaCargaAS400
@@ -83,6 +91,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaGeneracionCF() As DateTime
         Get
             Return _FechaGeneracionCF
@@ -92,6 +101,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaDescargaArchivo() As DateTime
         Get
             Return _FechaDescargaArchivo
@@ -101,6 +111,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaEnvioEmail() As DateTime
         Get
             Return _FechaEnvioEmail
@@ -110,6 +121,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property TmpStatusGen() As String
         Get
             Return _TmpStatusGen
@@ -119,6 +131,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaProcesoAD() As DateTime
         Get
             Return _FechaProcesoAD
@@ -128,6 +141,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaEnvioAS400() As DateTime
         Get
             Return _FechaEnvioAS400
@@ -137,6 +151,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaCorteSeguimiento() As DateTime
         Get
             Return _FechaCorteSeguimiento
@@ -146,6 +161,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property Usuario() As String
         Get
             Return _Usuario
@@ -155,6 +171,7 @@ Public Class clsProceso
         End Set
     End Property
 
+    <DataMember()>
     Public Property FechaPostConciliacion() As DateTime
         Get
             Return _FechaPostConciliacion

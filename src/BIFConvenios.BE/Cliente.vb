@@ -1,7 +1,9 @@
+<DataContract()>
 Public Class Cliente
     ' Fields
     Private _codibs As Integer
     ' Properties
+    <DataMember()>
     Public Property codibs() As Integer
         Get
             Return _codibs

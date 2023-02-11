@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsCliente
     ' Fields
     Private _CodigoCliente As Integer
@@ -37,6 +38,7 @@ Public Class clsCliente
     Private _FechaModificacion As DateTime
 
     ' Properties
+    <DataMember()>
     Public Property CodigoCliente() As Integer
         Get
             Return _CodigoCliente
@@ -46,6 +48,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property NombreCliente() As String
         Get
             Return _NombreCliente
@@ -55,6 +58,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property TipoArchivoEnviar() As String
         Get
             Return _TipoArchivoEnviar
@@ -64,6 +68,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property FormatoArchivo() As String
         Get
             Return _FormatoArchivo
@@ -73,6 +78,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property TipoFormatoArchivo() As String
         Get
             Return _TipoFormatoArchivo
@@ -82,6 +88,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoReferencia() As String
         Get
             Return _CodigoReferencia
@@ -91,6 +98,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property TipoDocumento() As String
         Get
             Return _TipoDocumento
@@ -100,6 +108,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property NumeroDocumento() As String
         Get
             Return _NumeroDocumento
@@ -109,6 +118,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CorreoElectronico() As String
         Get
             Return _CorreoElectronico
@@ -118,6 +128,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property FormatoArchivoImportacion() As String
         Get
             Return _FormatoArchivoImportacion
@@ -127,6 +138,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Telefono1() As String
         Get
             Return _Telefono1
@@ -136,6 +148,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Telefono2() As String
         Get
             Return _Telefono2
@@ -145,6 +158,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Telefono3() As String
         Get
             Return _Telefono3
@@ -154,6 +168,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Telefono4() As String
         Get
             Return _Telefono4
@@ -163,6 +178,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property DiaEnvioPlanilla() As String
         Get
             Return _DiaEnvioPlanilla
@@ -172,6 +188,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property DiaCierrePlanilla() As String
         Get
             Return _DiaCierrePlanilla
@@ -181,6 +198,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property MesesAnticipacionEnvioListado() As String
         Get
             Return _MesesAnticipacionEnvioListado
@@ -190,6 +208,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property DiaCorte() As String
         Get
             Return _DiaCorte
@@ -199,6 +218,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property IdFuncionario() As Integer
         Get
             Return _IdFuncionario
@@ -208,6 +228,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoIBS() As Integer
         Get
             Return _CodigoIBS
@@ -217,6 +238,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoInstitucion() As String
         Get
             Return _CodigoInstitucion
@@ -226,6 +248,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoInstitucionCAS() As String
         Get
             Return _CodigoInstitucionCAS
@@ -235,6 +258,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property IndEnvioAutomaticoListado() As String
         Get
             Return _IndEnvioAutomaticoListado
@@ -244,6 +268,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property BloquearCredito() As Integer
         Get
             Return _BloquearCredito
@@ -253,6 +278,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property Estado() As Integer
         Get
             Return _Estado
@@ -262,6 +288,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoOficina() As Integer
         Get
             Return _CodigoOficina
@@ -271,6 +298,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property NombreOficina() As String
         Get
             Return _NombreOficina
@@ -280,6 +308,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property CodigoGestor() As Integer
         Get
             Return _CodigoGestor
@@ -289,6 +318,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property NombreGestor() As String
         Get
             Return _NombreGestor
@@ -298,6 +328,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public Property UsuarioCreacion() As String
         Get
             Return _UsuarioCreacion
@@ -307,12 +338,14 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public ReadOnly Property FechaCreacion() As DateTime
         Get
             Return _FechaCreacion
         End Get
     End Property
 
+    <DataMember()>
     Public Property UsuarioModificacion() As String
         Get
             Return _UsuarioModificacion
@@ -322,6 +355,7 @@ Public Class clsCliente
         End Set
     End Property
 
+    <DataMember()>
     Public ReadOnly Property FechaModificacion() As DateTime
         Get
             Return _FechaModificacion

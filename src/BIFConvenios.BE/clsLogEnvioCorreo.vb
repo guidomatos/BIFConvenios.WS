@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsLogEnvioCorreo
     ' Fields
     Private _iEnvioCorreoId As Integer
@@ -20,6 +21,7 @@ Public Class clsLogEnvioCorreo
     Private _dFechaModificacion As String
 
     ' Properties
+    <DataMember()>
     Public Property iEnvioCorreoId() As Integer
         Get
             Return _iEnvioCorreoId
@@ -29,6 +31,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iProcesoAutomaticoId() As Integer
         Get
             Return _iProcesoAutomaticoId
@@ -38,6 +41,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iTipoEnvioCorreoId() As Integer
         Get
             Return _iTipoEnvioCorreoId
@@ -47,6 +51,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property vTipoEnvioCorreoId() As String
         Get
             Return _vTipoEnvioCorreoId
@@ -56,6 +61,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iCodigoCliente() As Integer
         Get
             Return _iCodigoCliente
@@ -65,6 +71,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iCodigoIBS() As Integer
         Get
             Return _iCodigoIBS
@@ -74,6 +81,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property vCodigoProceso() As String
         Get
             Return _vCodigoProceso
@@ -83,6 +91,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iAnioPeriodo() As Integer
         Get
             Return _iAnioPeriodo
@@ -92,6 +101,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iMesPeriodo() As Integer
         Get
             Return _iMesPeriodo
@@ -101,6 +111,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property vMensajeProceso() As String
         Get
             Return _vMensajeProceso
@@ -110,6 +121,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property iEstado() As Integer
         Get
             Return _iEstado
@@ -119,6 +131,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property vEstado() As String
         Get
             Return _vEstado
@@ -128,6 +141,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioCreacion() As String
         Get
             Return _vUsuarioCreacion
@@ -137,6 +151,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaCreacion() As String
         Get
             Return _dFechaCreacion
@@ -146,6 +161,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioModificacion() As String
         Get
             Return _vUsuarioModificacion
@@ -155,6 +171,7 @@ Public Class clsLogEnvioCorreo
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaModificacion() As String
         Get
             Return _dFechaModificacion

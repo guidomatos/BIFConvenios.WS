@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsReponsableOficina
     ' Fields
     Private _iResponsableId As Integer
@@ -14,6 +15,7 @@ Public Class clsReponsableOficina
     Private _dFechaModificacion As DateTime
 
     ' Properties
+    <DataMember()>
     Public Property iResponsableId() As Integer
         Get
             Return _iResponsableId
@@ -23,6 +25,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property iOficinaId() As Integer
         Get
             Return _iOficinaId
@@ -32,6 +35,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property vOficina() As String
         Get
             Return _vOficina
@@ -41,6 +45,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property vNombreResponsable() As String
         Get
             Return _vNombreResponsable
@@ -50,6 +55,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property vCorreoResponsable() As String
         Get
             Return _vCorreoResponsable
@@ -59,6 +65,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property iEstado() As Integer
         Get
             Return _iEstado
@@ -68,6 +75,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioCreacion() As String
         Get
             Return _vUsuarioCreacion
@@ -77,6 +85,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaCreacion() As DateTime
         Get
             Return _dFechaCreacion
@@ -86,6 +95,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioModificacion() As String
         Get
             Return _vUsuarioModificacion
@@ -95,6 +105,7 @@ Public Class clsReponsableOficina
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaModificacion() As DateTime
         Get
             Return _dFechaModificacion

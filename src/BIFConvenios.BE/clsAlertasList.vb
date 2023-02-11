@@ -1,8 +1,10 @@
+<DataContract()>
 Public Class clsAlertasList
     ' Fields
     Private _objElements As List(Of clsAlertas)
 
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsAlertas)
         Get
             Return _objElements

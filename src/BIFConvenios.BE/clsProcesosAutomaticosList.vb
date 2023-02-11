@@ -1,8 +1,10 @@
+<DataContract()>
 Public Class clsProcesosAutomaticosList
     ' Fields
     Private _objElements As List(Of clsProcesosAutomaticos)
 
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsProcesosAutomaticos)
         Get
             Return _objElements

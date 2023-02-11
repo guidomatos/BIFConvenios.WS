@@ -1,9 +1,11 @@
+<DataContract()>
 Public Class clsLogEnvioCorreoList
 
     ' Fields
     Private _objElements As List(Of clsLogEnvioCorreo)
 
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsLogEnvioCorreo)
         Get
             Return _objElements

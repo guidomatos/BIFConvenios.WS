@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsProcesosAutomaticos
     ' Fields
     Private _iProcesoAutomaticoId As Integer
@@ -15,6 +16,7 @@ Public Class clsProcesosAutomaticos
     Private _dFechaModificacion As String
 
     ' Properties
+    <DataMember()>
     Public Property iProcesoAutomaticoId() As Integer
         Get
             Return _iProcesoAutomaticoId
@@ -24,6 +26,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property iTotalRegistros() As Integer
         Get
             Return _iTotalRegistros
@@ -33,6 +36,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property iProcesados() As Integer
         Get
             Return _iProcesados
@@ -42,6 +46,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property iErroneos() As Integer
         Get
             Return _iErroneos
@@ -51,6 +56,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property vMensajeProceso() As String
         Get
             Return _vMensajeProceso
@@ -60,6 +66,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property iEstado() As Integer
         Get
             Return _iEstado
@@ -69,6 +76,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property vEstado() As String
         Get
             Return _vEstado
@@ -78,6 +86,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioCreacion() As String
         Get
             Return _vUsuarioCreacion
@@ -87,6 +96,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaCreacion() As String
         Get
             Return _dFechaCreacion
@@ -96,6 +106,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioModificacion() As String
         Get
             Return _vUsuarioModificacion
@@ -105,6 +116,7 @@ Public Class clsProcesosAutomaticos
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaModificacion() As String
         Get
             Return _dFechaModificacion

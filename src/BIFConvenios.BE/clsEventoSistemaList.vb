@@ -1,7 +1,9 @@
+<DataContract()>
 Public Class clsEventoSistemaList
     ' Fields
     Private _objElements As List(Of clsEventoSistema)
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsEventoSistema)
         Get
             Return _objElements

@@ -1,7 +1,10 @@
+<DataContract()>
 Public Class clsResponsableOficinaList
     ' Fields
     Private _objElements As List(Of clsReponsableOficina)
+
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsReponsableOficina)
         Get
             Return _objElements

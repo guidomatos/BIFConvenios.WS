@@ -1,3 +1,4 @@
+<DataContract()>
 Public Class clsCoordinadorClienteList
     ' Fields
     Private _objElements As List(Of clsCoordinadorCliente)

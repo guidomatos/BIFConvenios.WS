@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsAlertasClientes
     Private _iAlertaClienteId As Integer
     Private _iAlertaId As Integer
@@ -12,6 +13,8 @@ Public Class clsAlertasClientes
     Private _dFechaCreacion As DateTime
     Private _vUsuarioModificacion As String
     Private _dFechaModificacion As DateTime
+
+    <DataMember()>
     Public Property dFechaCreacion() As DateTime
         Get
             Return _dFechaCreacion
@@ -21,6 +24,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaModificacion() As DateTime
         Get
             Return _dFechaModificacion
@@ -30,6 +34,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iAdjunto() As Integer
         Get
             Return _iAdjunto
@@ -39,6 +44,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iAlertaClienteId() As Integer
         Get
             Return _iAlertaClienteId
@@ -48,6 +54,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iAlertaId() As Integer
         Get
             Return _iAlertaId
@@ -57,6 +64,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iClienteId() As Integer
         Get
             Return _iClienteId
@@ -66,6 +74,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iDiasAntes() As Integer
         Get
             Return _iDiasAntes
@@ -75,6 +84,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iDiasDespues() As Integer
         Get
             Return _iDiasDespues
@@ -84,6 +94,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property iEstado() As Integer
         Get
             Return _iEstado
@@ -93,6 +104,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioCreacion() As String
         Get
             Return _vUsuarioCreacion
@@ -102,6 +114,7 @@ Public Class clsAlertasClientes
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioModificacion() As String
         Get
             Return _vUsuarioModificacion

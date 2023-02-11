@@ -1,10 +1,11 @@
+<DataContract()>
 Public Class clsAlertaClienteList
     Private _objElements As List(Of clsAlertasClientes)
 
     Public Sub New()
         MyBase.New()
     End Sub
-
+    <DataMember()>
     Public Property Elements() As List(Of clsAlertasClientes)
         Get
             Return _objElements

@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsArchivosConvenios
     ' Fields
     Private _iArchivoConvenioId As Integer
@@ -15,6 +16,7 @@ Public Class clsArchivosConvenios
     Private _dFechaModificacion As DateTime
 
     ' Properties
+    <DataMember()>
     Public Property iArchivoConvenioId() As Integer
         Get
             Return _iArchivoConvenioId
@@ -24,6 +26,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vCodProceso() As String
         Get
             Return _vCodProceso
@@ -33,6 +36,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vNombreArchivo() As String
         Get
             Return _vNombreArchivo
@@ -42,6 +46,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vRutaCreacion() As String
         Get
             Return _vRutaCreacion
@@ -51,6 +56,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vRutaModificacion() As String
         Get
             Return _vRutaModificacion
@@ -60,6 +66,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vRutaHistorico() As String
         Get
             Return _vRutaHistorico
@@ -69,6 +76,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property iEstado() As Integer
         Get
             Return _iEstado
@@ -78,6 +86,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioCreacion() As String
         Get
             Return _vUsuarioCreacion
@@ -87,6 +96,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaCreacion() As DateTime
         Get
             Return _dFechaCreacion
@@ -96,6 +106,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property vUsuarioModificacion() As String
         Get
             Return _vUsuarioModificacion
@@ -105,6 +116,7 @@ Public Class clsArchivosConvenios
         End Set
     End Property
 
+    <DataMember()>
     Public Property dFechaModificacion() As DateTime
         Get
             Return _dFechaModificacion

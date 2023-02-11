@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic.CompilerServices
 
+<DataContract()>
 Public Class clsEventoSistema
     ' Fields
     Private _idEventoSistema As Integer
@@ -12,6 +13,7 @@ Public Class clsEventoSistema
     Private _Usuario As String
 
     ' Properties
+    <DataMember()>
     Public Property IdEventoSistema() As Integer
         Get
             Return _idEventoSistema
@@ -21,6 +23,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Fecha() As DateTime
         Get
             Return _Fecha
@@ -30,6 +33,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Hilo() As String
         Get
             Return _Hilo
@@ -39,6 +43,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Nivel() As String
         Get
             Return _Nivel
@@ -48,6 +53,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Accion() As String
         Get
             Return _Accion
@@ -57,6 +63,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Mensaje() As String
         Get
             Return _Mensaje
@@ -66,6 +73,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Excepcion() As String
         Get
             Return _Excepcion
@@ -75,6 +83,7 @@ Public Class clsEventoSistema
         End Set
     End Property
 
+    <DataMember()>
     Public Property Usuario() As String
         Get
             Return _Usuario

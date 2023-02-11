@@ -1,8 +1,10 @@
+<DataContract()>
 Public Class clsArchivosConveniosList
     ' Fields
     Private _objElements As List(Of clsArchivosConvenios)
 
     ' Properties
+    <DataMember()>
     Public Property Elements() As List(Of clsArchivosConvenios)
         Get
             Return _objElements

@@ -1,8 +1,10 @@
+<DataContract()>
 Public Class ClsAcceso
     ' Fields
     Private _idUsuario As String
 
     ' Properties
+    <DataMember()>
     Public Property idUsuario() As String
         Get
             Return _idUsuario

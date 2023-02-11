@@ -1,3 +1,4 @@
+<DataContract()>
 Public Class clsParametro
 
     Private _iGrupoId As Integer
@@ -9,6 +10,7 @@ Public Class clsParametro
     Private _iEstado As Integer
 
     ' Properties
+    <DataMember()>
     Public Property GrupoId() As Integer
         Get
             Return _iGrupoId
@@ -18,6 +20,7 @@ Public Class clsParametro
         End Set
     End Property
 
+    <DataMember()>
     Public Property ParametroId() As Integer
         Get
             Return _iParametroId
@@ -27,6 +30,7 @@ Public Class clsParametro
         End Set
     End Property
 
+    <DataMember()>
     Public Property Descripcion() As String
         Get
             Return _sDescripcion
@@ -36,6 +40,7 @@ Public Class clsParametro
         End Set
     End Property
 
+    <DataMember()>
     Public Property Valor() As String
         Get
             Return _sValor
@@ -45,6 +50,7 @@ Public Class clsParametro
         End Set
     End Property
 
+    <DataMember()>
     Public Property Orden() As Integer
         Get
             Return _iOrden
@@ -54,6 +60,7 @@ Public Class clsParametro
         End Set
     End Property
 
+    <DataMember()>
     Public Property Visible() As Integer
         Get
             Return _iVisible
@@ -63,6 +70,7 @@ Public Class clsParametro
         End Set
     End Property
 
+    <DataMember()>
     Public Property TotalRegistros() As Integer
         Get
             Return _iEstado
