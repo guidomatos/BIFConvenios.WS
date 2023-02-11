@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="VB" Debug="true" Service="BIFConvenios.WS.wsAlertasAutomaticas" CodeBehind="wsAlertasAutomaticas.svc.vb" %>

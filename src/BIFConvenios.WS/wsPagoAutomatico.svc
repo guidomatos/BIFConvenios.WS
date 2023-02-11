@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="VB" Debug="true" Service="BIFConvenios.WS.wsPagoAutomatico" CodeBehind="wsPagoAutomatico.svc.vb" %>
