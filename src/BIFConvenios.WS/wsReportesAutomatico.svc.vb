@@ -158,37 +158,81 @@ Public Class wsReportesAutomatico
                 Dim _dtCabecera As New DataTable()
                 Dim _dtDetalle As New DataTable()
 
-                Try
-                    _dtCabecera = objReporteAutomaticoBL.ReporteNominaAutomaticaCabecera(pintFuncionarioId)
 
-                    If _dtCabecera.Rows.Count > 0 Then
-                        For Each _drw As DataRow In _dtCabecera.Rows
-                            'dsNominaAutomatica.Cabecera.AddCabeceraRow(_drw("iTotalEmpresas").ToString(), _drw("iNumeroCreditos").ToString, _drw("dTotalImporte").ToString())
-                        Next
-                    End If
-                Catch ex As HandledException
-                    strMensajeEvento = clsMensajesGeneric.ExcepcionControlada.Replace("&1", "ReporteNominaAutomaticaCabecera").Replace("&2", enumGeneric.SendMailError.ToString()).Replace("&3", ex.ToString())
-                    RegistrarLogEnvio(pintCodigoProcesoAutomatico, pintFuncionarioId, 0, enumTipoEnvioCorreo.ReporteAutomatico, "", 0, 0, strMensajeEvento, enumLogEnvioCorreo.Error, pstrUsuario)
+                ' export AS IS
 
-                    pintEstado = 0
-                    Return strMensajeEvento
-                End Try
+                'Try
+                '    _dtCabecera = objReporteAutomaticoBL.ReporteNominaAutomaticaCabecera(pintFuncionarioId)
 
-                Try
-                    _dtDetalle = objReporteAutomaticoBL.ReporteNominaAutomaticaDetalle(pintFuncionarioId)
+                '    If _dtCabecera.Rows.Count > 0 Then
+                '        For Each _drw As DataRow In _dtCabecera.Rows
+                '            'dsNominaAutomatica.Cabecera.AddCabeceraRow(_drw("iTotalEmpresas").ToString(), _drw("iNumeroCreditos").ToString, _drw("dTotalImporte").ToString())
+                '        Next
+                '    End If
+                'Catch ex As HandledException
+                '    strMensajeEvento = clsMensajesGeneric.ExcepcionControlada.Replace("&1", "ReporteNominaAutomaticaCabecera").Replace("&2", enumGeneric.SendMailError.ToString()).Replace("&3", ex.ToString())
+                '    RegistrarLogEnvio(pintCodigoProcesoAutomatico, pintFuncionarioId, 0, enumTipoEnvioCorreo.ReporteAutomatico, "", 0, 0, strMensajeEvento, enumLogEnvioCorreo.Error, pstrUsuario)
 
-                    If _dtDetalle.Rows.Count > 0 Then
-                        For Each _drw As DataRow In _dtDetalle.Rows
-                            'dsNominaAutomatica.Detalle.AddDetalleRow(_drw("EMPRESA").ToString(), _drw("RUC").ToString(), _drw("CODIGO_IBS").ToString(), _drw("NROCREDITOS").ToString(), _drw("IMPORTE").ToString())
-                        Next
-                    End If
-                Catch ex As HandledException
-                    strMensajeEvento = clsMensajesGeneric.ExcepcionControlada.Replace("&1", "ReporteNominaAutomaticaDetalle").Replace("&2", enumGeneric.SendMailError.ToString()).Replace("&3", ex.ToString())
-                    RegistrarLogEnvio(pintCodigoProcesoAutomatico, pintFuncionarioId, 0, enumTipoEnvioCorreo.ReporteAutomatico, "", 0, 0, strMensajeEvento, enumLogEnvioCorreo.Error, pstrUsuario)
+                '    pintEstado = 0
+                '    Return strMensajeEvento
+                'End Try
 
-                    pintEstado = 0
-                    Return strMensajeEvento
-                End Try
+                'Try
+                '    _dtDetalle = objReporteAutomaticoBL.ReporteNominaAutomaticaDetalle(pintFuncionarioId)
+
+                '    If _dtDetalle.Rows.Count > 0 Then
+                '        For Each _drw As DataRow In _dtDetalle.Rows
+                '            'dsNominaAutomatica.Detalle.AddDetalleRow(_drw("EMPRESA").ToString(), _drw("RUC").ToString(), _drw("CODIGO_IBS").ToString(), _drw("NROCREDITOS").ToString(), _drw("IMPORTE").ToString())
+                '        Next
+                '    End If
+                'Catch ex As HandledException
+                '    strMensajeEvento = clsMensajesGeneric.ExcepcionControlada.Replace("&1", "ReporteNominaAutomaticaDetalle").Replace("&2", enumGeneric.SendMailError.ToString()).Replace("&3", ex.ToString())
+                '    RegistrarLogEnvio(pintCodigoProcesoAutomatico, pintFuncionarioId, 0, enumTipoEnvioCorreo.ReporteAutomatico, "", 0, 0, strMensajeEvento, enumLogEnvioCorreo.Error, pstrUsuario)
+
+                '    pintEstado = 0
+                '    Return strMensajeEvento
+                'End Try
+
+
+
+                ' export TO BE
+
+                'DataSet products = New DataSet();
+
+                'Using (SqlConnection con = New SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnectionString"].ToString()))
+                '{
+                '    con.Open();
+                '    String queryString = "SELECT * FROM Production.Product";
+                '    SqlDataAdapter adapter = New SqlDataAdapter(queryString, con);
+
+                '    adapter.Fill(products, "Product");
+
+                '    con.Close();
+                '}
+                '// Variables
+                'Warning[] warnings;
+                'String[] streamIds;
+                'String mimeType = String.Empty;
+                'String Encoding = String.Empty;
+                'String extension = String.Empty;
+
+                '// Setup the report viewer object And get the array of bytes
+                'ReportViewer viewer = New ReportViewer();
+                'ReportDataSource rds = New ReportDataSource();
+                'viewer.ProcessingMode = ProcessingMode.Local;
+                'viewer.LocalReport.ReportPath = Server.MapPath("Reports/Rpt1.rdlc");
+                'rds.Name = "DataSetProducts";//Provide refrerence To data Set which Is used To   design the rdlc. (DatasetName_TableAdapterName)
+                'rds.Value = products.Tables[0];
+
+                'viewer.LocalReport.DataSources.Add(rds);
+
+                'Byte[] bytes = viewer.LocalReport.Render("Excel", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+                'FileStream fs = New FileStream(@"c:\\exportFiles\\output.xls", FileMode.Create);
+                'fs.Write(bytes, 0, bytes.Length);
+                'fs.Close();
+
+
 
                 'oRepEnvioAutomatico.SetDataSource(dsNominaAutomatica)
 
@@ -224,26 +268,19 @@ Public Class wsReportesAutomatico
     End Function
 
     Private Function EnviarCorreoCliente(pstrNombreFuncionario As String, pstrCEFuncionario As String) As String
-        'Envio Correo a Funcionarios
-        Dim strCorreoElectronicoDE As String = String.Empty
-        Dim strCorreoElectronicosPara As String = String.Empty
-        Dim strCorreoElectronicosBCC As String = String.Empty
-        Dim strCorreoElectronicoAsunto As String = String.Empty
-        Dim strCorreoElectronicoNotificarA As String = String.Empty
-        Dim strCorreoElectronicoCuerpo As String = String.Empty
-
         Dim arrayMensajeInicio() As String = {"Inicio del Metodo - Parametros: pstrNombreFuncionario=", pstrNombreFuncionario, ", pstrCEFuncionario=", pstrCEFuncionario}
         objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "ObtenerListaProcesosDisponiblesByFecha", String.Concat(arrayMensajeInicio), "", "OperadorDES")
         objEventoSistemaBL.Insertar(objEventoSistema)
 
         _dtParametrosEnvioMail = objSystemParametersBL.Seleccionar(ConfigurationManager.AppSettings(clsTiposSystemParameters.ParametroEnvioMail.ToString()))
 
-        strCorreoElectronicoDE = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.MailPorDefecto))("vValor").ToString().Trim()
-        strCorreoElectronicosPara = pstrCEFuncionario
-        strCorreoElectronicosBCC = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.ListaMailCopias))("vValor").ToString().Trim()
-        strCorreoElectronicoAsunto = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.AsuntoReporteAutomatico))("vValor").ToString().Trim()
-        strCorreoElectronicoCuerpo = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.CuerpoReporteAutomatico))("vValor").ToString().Trim()
-        strCorreoElectronicoNotificarA = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.MailEnvio))("vValor").ToString().Trim()
+        'Envio Correo a Funcionarios
+        Dim strCorreoElectronicoDE As String = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.MailPorDefecto))("vValor").ToString().Trim()
+        Dim strCorreoElectronicosPara As String = pstrCEFuncionario
+        Dim strCorreoElectronicosBCC As String = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.ListaMailCopias))("vValor").ToString().Trim()
+        Dim strCorreoElectronicoAsunto As String = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.AsuntoReporteAutomatico))("vValor").ToString().Trim()
+        Dim strCorreoElectronicoCuerpo As String = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.CuerpoReporteAutomatico))("vValor").ToString().Trim()
+        Dim strCorreoElectronicoNotificarA As String = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.MailEnvio))("vValor").ToString().Trim()
 
         Dim strRoot As String = _dtParametrosEnvioMail.Rows(Convert.ToInt32(enumParametroEnvioMail.RutaDescargaReportes))("vValor").ToString().Trim()
         Dim name As String = objUtils.getWebServerDateId() & ".xls"
@@ -253,10 +290,8 @@ Public Class wsReportesAutomatico
         Dim strPathFile As String = String.Empty
         Dim strMensaje As String = String.Empty
 
-        Dim intResultExport As Integer = 0
-
         Try
-            intResultExport = clsFiles.VerifyPath(strRoot, intAnio, intMonth, strPathFile, pstrNombreFuncionario)
+            Dim intResultExport As Integer = clsFiles.VerifyPath(strRoot, intAnio, intMonth, strPathFile, pstrNombreFuncionario)
 
             If intResultExport = 1 Then
                 'Obtiene la ruta completa, para guardar el archivo excel
@@ -271,6 +306,12 @@ Public Class wsReportesAutomatico
                 'End With
 
                 'oRepEnvioAutomatico.Export()
+
+
+
+
+
+
 
                 Dim arrayMensajeInicioSendNotification() As String = {"Inicio del Metodo"}
                 objEventoSistema = objEventoSistemaBL.DevolverObjeto("BifConvenios", enumEstadoLog.Info.ToString(), "SendNotification", String.Concat(arrayMensajeInicio), "", "OperadorDES")
